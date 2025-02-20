@@ -14,30 +14,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.mealme.home.model.HomeMealViewer;
+import com.example.mealme.home.model.RandomMealViewer;
+import com.example.mealme.home.presenter.HomePresenter;
+import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.main.view.MainActivity;
-import com.example.mealme.model.remote.NetworkCallBack;
 import com.example.mealme.R;
-import com.example.mealme.model.remote.RandomMealNetworkCallBack;
 import com.example.mealme.home.model.RandomMealPojo;
 import com.example.mealme.home.model.HomeMealsPojo;
+import com.example.mealme.model.repo.Repository;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements NetworkCallBack, RandomMealNetworkCallBack {
-
-
-    RecyclerView recyclerView;
+public class HomeFragment extends Fragment implements HomeMealViewer, RandomMealViewer {
 
     ImageView randomMealPhoto;
     TextView randomMealName;
     TextView randomMealDesc;
-
+    RecyclerView recyclerView;
+    HomePresenter homePresenter;
     MyHomeMealsAdapter myHomeMealsAdapter;
-
-    MealRemoteDataSource mealRemoteDataSource;
-
-    MealRemoteDataSource randomMealClient;
 
     private static final String TAG = "HomeFragment";
 
@@ -64,44 +61,44 @@ public class HomeFragment extends Fragment implements NetworkCallBack, RandomMea
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         randomMealDesc = view.findViewById(R.id.randomMealDesc);
         randomMealName = view.findViewById(R.id.randomMealName);
         randomMealPhoto = view.findViewById(R.id.randomMealPhoto);
 
 
-        mealRemoteDataSource = new MealRemoteDataSource();
-        mealRemoteDataSource.makeNetWorkCall(this);
-
-        randomMealClient = new MealRemoteDataSource();
-        randomMealClient.makeRandomNetworkCall(this);
+        homePresenter = setupPresenter();
+        homePresenter.getHomeMeals();
+        homePresenter.getRandomMeal();
 
     }
-    @Override
-    public void onSuccessResult(List<HomeMealsPojo> listOfMeals) {
 
+    private HomePresenter setupPresenter(){
+        MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
+        MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
+        Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
+        return new HomePresenter(repo, this, this);
+    }
+
+    @Override
+    public void showHomeMeal(List<HomeMealsPojo> listOfMeals) {
         myHomeMealsAdapter = new MyHomeMealsAdapter(requireActivity(), listOfMeals);
         recyclerView.setAdapter(myHomeMealsAdapter);
-
     }
 
     @Override
-    public void onFailedResult(String errorMessage) {
-        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+    public void showHomeMealErrorMsg(String err) {
+        Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
-    public void onRandomMealSuccessResult(List<RandomMealPojo> listOfMeals) {
-
+    public void showRandomMeal(List<RandomMealPojo> listOfMeals) {
         Glide.with(requireActivity()).load(listOfMeals.get(0).getStrMealThumb()).into(randomMealPhoto);
         randomMealName.setText(listOfMeals.get(0).getStrMeal());
         randomMealDesc.setText(listOfMeals.get(0).getStrInstructions());
-
     }
 
     @Override
-    public void onRandomMealFailedResult(String errorMessage) {
-        Toast.makeText(requireActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+    public void showRandomMealErrorMsg(String err) {
+        Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,7 +1,10 @@
-/*package com.example.mealme.model.local;
+package com.example.mealme.model.local;
 
 import android.content.Context;
 import androidx.lifecycle.LiveData;
+
+import com.example.mealme.Meal;
+
 import java.util.List;
 
 public class MealLocalDataSource {
@@ -34,4 +37,4 @@ public class MealLocalDataSource {
             }
         }).start();
     }
-}*/
+}

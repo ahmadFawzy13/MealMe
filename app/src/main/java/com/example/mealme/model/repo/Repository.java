@@ -1,13 +1,19 @@
-/*package com.example.mealme.model.repo;
+package com.example.mealme.model.repo;
 
 import androidx.lifecycle.LiveData;
+
+import com.example.mealme.Meal;
+import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
+import com.example.mealme.model.remote.NetworkCallBack;
+import com.example.mealme.model.remote.RandomMealNetworkCallBack;
+
 import java.util.List;
 
 public class Repository {
 
-    MealRemoteDataSource remoteSource;
-    MealLocalDataSource localSource;
+    private MealRemoteDataSource remoteSource;
+    private MealLocalDataSource localSource;
     private static Repository repo = null;
 
     private Repository(MealRemoteDataSource remoteSource, MealLocalDataSource localSource) {
@@ -26,8 +32,11 @@ public class Repository {
         return localSource.getAllMeals();
     }
 
+    public void getRandomMeal(RandomMealNetworkCallBack randomMealNetworkCallBack){
+        remoteSource.makeRandomNetworkCall(randomMealNetworkCallBack);
+    }
     public void getAllRemoteMeals(NetworkCallBack networkCallBack){
-        remoteSource.makeNetworkCall(networkCallBack);
+        remoteSource.makeNetWorkCall(networkCallBack);
     }
 
     public void insertMeal(Meal meal){
@@ -35,6 +44,6 @@ public class Repository {
     }
 
     public void deleteMeal(Meal meal){
-        localSource.deleteMeal(product);
+        localSource.deleteMeal(meal);
     }
-}*/
+}

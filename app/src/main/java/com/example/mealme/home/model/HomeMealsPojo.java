@@ -1,7 +1,12 @@
 package com.example.mealme.home.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.PrimaryKey;
+
 public class HomeMealsPojo {
 
+    @PrimaryKey
+    @NonNull
     private String idMeal;
     private String strMeal;
     private String strMealThumb;

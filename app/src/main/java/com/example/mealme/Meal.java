@@ -1,8 +1,11 @@
 package com.example.mealme;
 
+import androidx.room.Entity;
+
 import com.example.mealme.home.model.RandomMealPojo;
 
 
+@Entity(tableName = "meals_table")
 public class Meal extends RandomMealPojo {
     private String strCategory;
     private String strArea;

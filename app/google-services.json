@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146068718664",
+    "project_id": "mealme-b9fcb",
+    "storage_bucket": "mealme-b9fcb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146068718664:android:12bdaecf5cbdd7fba8047d",
+        "android_client_info": {
+          "package_name": "com.example.mealme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDecjEm6ymwUGGS8rCW028RTX5hJbPqds0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

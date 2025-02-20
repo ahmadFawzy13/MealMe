@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signUpLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_theme"
+    tools:context=".signup.view.SignUpFragment">
+
+    <EditText
+        android:id="@+id/emailSignUp"
+        android:layout_width="312dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/img_2"
+        android:drawableStart="@drawable/_85078_mail_email_icon"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameSignUp" />
+
+    <EditText
+        android:id="@+id/passwordSignUp"
+        android:layout_width="312dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/img_2"
+        android:drawableStart="@drawable/_830995_padlock_password_secure_security_signin_icon"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailSignUp" />
+
+
+    <EditText
+        android:id="@+id/confirmPasswordSignUp"
+        android:layout_width="312dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/img_2"
+        android:drawableStart="@drawable/_830995_padlock_password_secure_security_signin_icon"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordSignUp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginBtn"
+        android:layout_width="204dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="27dp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/poppinsbold"
+        android:inputType="text"
+        android:text="@string/signUpp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordSignUp" />
+
+    <TextView
+        android:id="@+id/appTitleLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="224dp"
+        android:fontFamily="@font/poppinsextrabold"
+        android:text="MealMe"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/usernameSignUp"
+        android:layout_width="312dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/img_2"
+        android:drawableStart="@drawable/username_vector"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitleLogin" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="235dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="104dp"
+        android:rotation="30"
+        android:src="@drawable/calenderfoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordSignUp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="180dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="324dp"
+        android:rotation="30"
+        android:src="@drawable/saladfoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

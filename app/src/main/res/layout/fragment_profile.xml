@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profileLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_theme"
+    tools:context=".profile.view.ProfileFragment">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signOutBtn"
+        android:layout_width="221dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="212dp"
+        android:background="@drawable/button_shape"
+        android:inputType="text"
+        android:text="@string/signOut"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fvrtBtn"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="35dp"
+        android:drawableStart="@drawable/heart_icon"
+        android:drawableTint="@color/main_theme"
+        android:fontFamily="@font/poppinssemibold"
+        android:inputType="text"
+        android:text="@string/favourites"
+        android:textColor="@color/main_theme"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/signOutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/wklyPlnBtn"
+        android:layout_width="189dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/calender"
+        android:drawableTint="@color/main_theme"
+        android:fontFamily="@font/poppinssemibold"
+        android:inputType="text"
+        android:text="@string/calendar"
+        android:textColor="@color/main_theme"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/fvrtBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="334dp"
+        android:layout_height="310dp"
+        android:layout_marginBottom="39dp"
+        android:src="@drawable/profile_img"
+        app:layout_constraintBottom_toTopOf="@+id/wklyPlnBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="31dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="@string/the_bear"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="108dp"
+        android:src="@drawable/chefshat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

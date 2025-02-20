@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Mealme</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="noAccount">Don\'t Have An Account?</string>
+    <string name="signUp">Sign Up!</string>
+    <string name="guest">Guest</string>
+    <string name="signUpp">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="project_title">MealMe</string>
+    <string name="email">Email</string>
+    <string name="splash">Splash</string>
+    <string name="homePhrase">We\'ve Got Options For You</string>
+    <string name="editorsPick">"Editor's Pick For The Day 🖤 "</string>
+    <string name="continute_with_google">Continue With Google</string>
+    <string name="client_id">146068718664-fi1qp6qon7v3vourbip1rtf0cji22lo2.apps.googleusercontent.com</string>
+    <string name="signOut">Sign Out</string>
+    <string name="favourites">Favourites</string>
+    <string name="calendar">Calendar</string>
+    <string name="the_bear">Yes, Chef!</string>
+</resources>

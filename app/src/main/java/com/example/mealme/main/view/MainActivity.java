@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -24,30 +28,16 @@ public class MainActivity extends AppCompatActivity {
    BottomNavigationView bottomNav;
     FirebaseAuth firebaseAuth;
     FragmentTransaction fragmentTransaction;
-
     NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
-      /*  bottomNav.setOnItemSelectedListener(item -> {
-
-            if(item.getItemId() == R.id.nav_home){
-                replaceFragment(new HomeFragment());
-                return true;
-            }else if(item.getItemId() == R.id.nav_profile){
-                replaceFragment(new ProfileFragment());
-                return true;
-            }else{
-                Toast.makeText(this, "navBar", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });*/
 
     }
-
 
     @Override
     protected void onStart() {
@@ -56,14 +46,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNav, navController);
     }
 
-   /* private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView, fragment)
-                .commit();
-    }*/
-
     public void showBottomNav(boolean show) {
         bottomNav.setVisibility(show ? View.VISIBLE : View.GONE);
     }
-
 }

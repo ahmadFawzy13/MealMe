@@ -2,8 +2,9 @@ package com.example.mealme.model.repo;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.mealme.Meal;
+import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
+import com.example.mealme.model.remote.MealDetailsNetworkCallBack;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.remote.NetworkCallBack;
 import com.example.mealme.model.remote.RandomMealNetworkCallBack;
@@ -28,22 +29,17 @@ public class Repository {
         return repo;
     }
 
-    public LiveData<List<Meal>> getAllLocalMeals(){
-        return localSource.getAllMeals();
+    public LiveData<List<Meal>> getAllLocalMeals(){return localSource.getAllMeals();
     }
-
-    public void getRandomMeal(RandomMealNetworkCallBack randomMealNetworkCallBack){
+    public void insertMealLocal(Meal meal){localSource.insertMeal(meal);}
+    public void deleteMealLocal(Meal meal){localSource.deleteMeal(meal);}
+    public void getRandomRemoteMeal(RandomMealNetworkCallBack randomMealNetworkCallBack){
         remoteSource.makeRandomNetworkCall(randomMealNetworkCallBack);
     }
-    public void getAllRemoteMeals(NetworkCallBack networkCallBack){
+    public void getHomeRemoteMeals(NetworkCallBack networkCallBack){
         remoteSource.makeNetWorkCall(networkCallBack);
     }
-
-    public void insertMeal(Meal meal){
-        localSource.insertMeal(meal);
-    }
-
-    public void deleteMeal(Meal meal){
-        localSource.deleteMeal(meal);
+    public void getMealDetailsRemote(MealDetailsNetworkCallBack mealDetailsNetworkCallBack, String mealId){
+        remoteSource.makeMealDetailNetworkCall(mealDetailsNetworkCallBack,mealId);
     }
 }

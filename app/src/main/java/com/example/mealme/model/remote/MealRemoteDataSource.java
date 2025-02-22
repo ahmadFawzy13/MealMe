@@ -2,6 +2,8 @@ package com.example.mealme.model.remote;
 
 import android.util.Log;
 
+import com.example.mealme.meal_details.model.Meal;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -12,9 +14,7 @@ public class MealRemoteDataSource {
 
     public static final String TAG = "Home Meals Client";
     private static final String BASE_URL = "https://www.themealdb.com/";
-
     private MealsApi mealsApi;
-
     public MealRemoteDataSource(){
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -23,7 +23,6 @@ public class MealRemoteDataSource {
                 .build();
 
         mealsApi = retrofit.create(MealsApi.class);
-
     }
 
     public void makeNetWorkCall(NetworkCallBack networkCallBack){
@@ -64,8 +63,24 @@ public class MealRemoteDataSource {
                 throwable.printStackTrace();
             }
         });
-
-
-
    }
+
+    public void makeMealDetailNetworkCall(MealDetailsNetworkCallBack mealDetailsNetworkCallBack, String mealId){
+        Call<MealDetailsResponse>call = mealsApi.getMealDetails(mealId);
+        call.enqueue(new Callback<MealDetailsResponse>() {
+            @Override
+            public void onResponse(Call<MealDetailsResponse> call, Response<MealDetailsResponse> response) {
+                Log.i(TAG, "onResponse: Callback " + response.raw() + response.body().toString());
+                mealDetailsNetworkCallBack.onMealDetailsSuccessResult(response.body().getListOfMealsResponse());
+            }
+
+            @Override
+            public void onFailure(Call<MealDetailsResponse> call, Throwable throwable) {
+                Log.i(TAG, "onFailure: Callback");
+                mealDetailsNetworkCallBack.onMealDetailsFailedResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
 }

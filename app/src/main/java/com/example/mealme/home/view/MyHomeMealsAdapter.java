@@ -9,9 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mealme.IdDelivery;
 import com.example.mealme.R;
 import com.example.mealme.home.model.HomeMealsPojo;
 
@@ -22,11 +24,13 @@ public class MyHomeMealsAdapter extends RecyclerView.Adapter<MyHomeMealsAdapter.
 
     private Context context;
     private List<HomeMealsPojo> response;
-    private static final String TAG = "MyAdapter";
 
-    public MyHomeMealsAdapter(Context context, List<HomeMealsPojo> response) {
+    IdDelivery idDelivery;
+
+    public MyHomeMealsAdapter(Context context, List<HomeMealsPojo> response, IdDelivery idDelivery) {
         this.context = context;
         this.response = response;
+        this.idDelivery = idDelivery;
     }
 
     public void setList(List<HomeMealsPojo> productsList) {
@@ -45,6 +49,10 @@ public class MyHomeMealsAdapter extends RecyclerView.Adapter<MyHomeMealsAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.homeMealName.setText(response.get(position).getStrMeal());
         Glide.with(context).load(response.get(position).getStrMealThumb()).into(holder.homeMealPhoto);
+
+        holder.homeMealPhoto.setOnClickListener(v->{
+            idDelivery.idTransfer(response.get(position).getIdMeal());
+        });
     }
 
     @Override

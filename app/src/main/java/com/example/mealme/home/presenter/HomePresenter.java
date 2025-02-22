@@ -7,9 +7,7 @@ import com.example.mealme.home.model.RandomMealViewer;
 import com.example.mealme.model.remote.NetworkCallBack;
 import com.example.mealme.model.remote.RandomMealNetworkCallBack;
 import com.example.mealme.model.repo.Repository;
-
 import java.util.List;
-import java.util.Random;
 
 public class HomePresenter implements NetworkCallBack, RandomMealNetworkCallBack {
     private Repository repo;
@@ -23,11 +21,11 @@ public class HomePresenter implements NetworkCallBack, RandomMealNetworkCallBack
     }
 
     public void getHomeMeals(){
-        repo.getAllRemoteMeals(this);
+        repo.getHomeRemoteMeals(this);
     }
 
     public void getRandomMeal(){
-        repo.getRandomMeal(this);
+        repo.getRandomRemoteMeal(this);
     }
     @Override
     public void onSuccessResult(List<HomeMealsPojo> listOfMeals) {
@@ -48,4 +46,7 @@ public class HomePresenter implements NetworkCallBack, RandomMealNetworkCallBack
     public void onRandomMealFailedResult(String errorMessage) {
         randomMealViewer.showRandomMealErrorMsg(errorMessage);
     }
+
+
+
 }

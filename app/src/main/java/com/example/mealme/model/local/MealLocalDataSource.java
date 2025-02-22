@@ -3,7 +3,7 @@ package com.example.mealme.model.local;
 import android.content.Context;
 import androidx.lifecycle.LiveData;
 
-import com.example.mealme.Meal;
+import com.example.mealme.meal_details.model.Meal;
 
 import java.util.List;
 

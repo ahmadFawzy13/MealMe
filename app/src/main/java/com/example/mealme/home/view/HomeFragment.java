@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.mealme.IdDelivery;
 import com.example.mealme.home.model.HomeMealViewer;
 import com.example.mealme.home.model.RandomMealViewer;
 import com.example.mealme.home.presenter.HomePresenter;
@@ -27,7 +29,7 @@ import com.example.mealme.model.repo.Repository;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeMealViewer, RandomMealViewer {
+public class HomeFragment extends Fragment implements HomeMealViewer, RandomMealViewer, IdDelivery {
 
     ImageView randomMealPhoto;
     TextView randomMealName;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
     RecyclerView recyclerView;
     HomePresenter homePresenter;
     MyHomeMealsAdapter myHomeMealsAdapter;
+    View view;
 
     private static final String TAG = "HomeFragment";
 
@@ -64,7 +67,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         randomMealDesc = view.findViewById(R.id.randomMealDesc);
         randomMealName = view.findViewById(R.id.randomMealName);
         randomMealPhoto = view.findViewById(R.id.randomMealPhoto);
-
+        this.view = view;
 
         homePresenter = setupPresenter();
         homePresenter.getHomeMeals();
@@ -81,7 +84,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
 
     @Override
     public void showHomeMeal(List<HomeMealsPojo> listOfMeals) {
-        myHomeMealsAdapter = new MyHomeMealsAdapter(requireActivity(), listOfMeals);
+        myHomeMealsAdapter = new MyHomeMealsAdapter(requireActivity(), listOfMeals,this);
         recyclerView.setAdapter(myHomeMealsAdapter);
     }
 
@@ -95,10 +98,23 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         Glide.with(requireActivity()).load(listOfMeals.get(0).getStrMealThumb()).into(randomMealPhoto);
         randomMealName.setText(listOfMeals.get(0).getStrMeal());
         randomMealDesc.setText(listOfMeals.get(0).getStrInstructions());
+        randomMealPhoto.setOnClickListener(v->{
+            com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2
+                   actionHomeFragmentToMealFragment2 = HomeFragmentDirections.actionHomeFragmentToMealFragment2(listOfMeals.get(0).getIdMeal());
+            Navigation.findNavController(view).navigate(actionHomeFragmentToMealFragment2);
+        });
     }
 
     @Override
     public void showRandomMealErrorMsg(String err) {
         Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void idTransfer(String id) {
+        com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2 actionHomeFragmentToMealFragment2
+                = HomeFragmentDirections.actionHomeFragmentToMealFragment2(id);
+        Navigation.findNavController(view).navigate(actionHomeFragmentToMealFragment2);
+
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.mealme.login.view.LoginFragment"
@@ -42,7 +42,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mealme.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_mealFragment2"
+            app:destination="@id/mealFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.mealme.profile.view.ProfileFragment"
@@ -53,5 +57,13 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealFragment"
+        android:name="com.example.mealme.meal_details.view.MealFragment"
+        android:label="MealFragment" >
+        <argument
+            android:name="idMeal"
+            app:argType="string" />
     </fragment>
 </navigation>

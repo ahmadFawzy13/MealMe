@@ -5,6 +5,10 @@ public class RandomMealPojo extends HomeMealsPojo {
     private String strInstructions;
 
 
+    public RandomMealPojo(){
+        super();
+
+    }
     public RandomMealPojo(String idMeal, String strMeal, String strMealThumb,String strInstructions ) {
         super(idMeal, strMeal, strMealThumb);
         this.strInstructions = strInstructions;

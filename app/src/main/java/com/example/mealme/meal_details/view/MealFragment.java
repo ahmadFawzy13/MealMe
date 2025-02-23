@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mealme.CalendarMeal;
 import com.example.mealme.R;
 import com.example.mealme.Reflector;
 import com.example.mealme.main.view.MainActivity;
@@ -63,6 +64,8 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
 
     NestedScrollView nestedScrollView;
 
+    CalendarMeal calendarMeal;
+
     private Meal meal;
 
     public MealFragment() {
@@ -87,7 +90,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
+        month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
         calendarBtn = view.findViewById(R.id.calendarBtn);
@@ -111,10 +114,6 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         getLifecycle().addObserver(youTubePlayerView);
 
 
-        calendarBtn.setOnClickListener(v->{
-            datePicker();
-        });
-
         receivedId = MealFragmentArgs.fromBundle(getArguments()).getIdMeal();
         mealPresenter = setUpPresenter();
         mealPresenter.getMealDetails(receivedId);
@@ -126,6 +125,11 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
             Snackbar.make(nestedScrollView,"Saved to Favourites!",Snackbar.LENGTH_SHORT).show();
 
         });
+
+        calendarBtn.setOnClickListener(v->{
+            datePicker();
+        });
+
     }
 
     private MealPresenter setUpPresenter() {
@@ -168,12 +172,18 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                Toast.makeText(requireActivity(), String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(dayOfMonth), Toast.LENGTH_SHORT).show();
-                
+                String date = String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(dayOfMonth);
+                calendarMeal = new CalendarMeal(meal,date);
+                mealPresenter.insertCalendarMeal(calendarMeal);
+                Snackbar.make(nestedScrollView,"Saved To Calendar!",Snackbar.LENGTH_SHORT).show();
+
             }   
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        calendar.add(Calendar.DAY_OF_MONTH,6);
+        dialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
         dialog.show();
+        calendar.add(Calendar.DAY_OF_MONTH,-6);
     }
 
     @Override

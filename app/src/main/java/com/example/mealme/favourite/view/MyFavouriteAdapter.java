@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.DeleteMeal;
-import com.example.mealme.ObjectTransfer;
+import com.example.mealme.MealObjectTransfer;
 import com.example.mealme.R;
 import com.example.mealme.meal_details.model.Meal;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -28,15 +28,15 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
 
         DeleteMeal deleteMeal;
 
-        ObjectTransfer objectTransfer;
+        MealObjectTransfer mealObjectTransfer;
         Meal meal;
 
 
-    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, ObjectTransfer objectTransfer) {
+    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, MealObjectTransfer mealObjectTransfer) {
         this.context = context;
         this.favMeals = favMeals;
         this.deleteMeal = deleteMeal;
-        this.objectTransfer = objectTransfer;
+        this.mealObjectTransfer = mealObjectTransfer;
     }
 
     public void setList(List<Meal> favMeals) {
@@ -66,7 +66,7 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
 
             holder.favCard.setOnClickListener(v->{
                 meal = favMeals.get(position);
-                objectTransfer.mealObjectTransfer(meal);
+                mealObjectTransfer.mealObjectTransfer(meal);
             });
 
         }

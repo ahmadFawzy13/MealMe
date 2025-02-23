@@ -54,6 +54,11 @@ public class Meal extends RandomMealPojo implements Serializable {
     private String strMeasure19;
     private String strMeasure20;
 
+    public Meal(){
+        super();
+
+    }
+
     public Meal(String idMeal, String strMeal, String strMealThumb, String strInstructions,
                 String strCategory, String strArea, String strTags, String strYoutube,
                 String strIngredient1, String strIngredient2, String strIngredient3,

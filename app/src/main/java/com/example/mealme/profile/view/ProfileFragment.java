@@ -58,5 +58,10 @@ public class ProfileFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_loginFragment, null, navOptions);
             Snackbar.make(view, "Signed out", Snackbar.LENGTH_SHORT).show();
         });
+
+        fvrtBtn.setOnClickListener(v->{
+            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_favouriteFragment);
+        });
+
     }
 }

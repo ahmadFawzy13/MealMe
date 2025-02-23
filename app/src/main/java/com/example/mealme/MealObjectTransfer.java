@@ -2,8 +2,6 @@ package com.example.mealme;
 
 import com.example.mealme.meal_details.model.Meal;
 
-public interface ObjectTransfer {
-
+public interface MealObjectTransfer {
     void mealObjectTransfer(Meal meal);
-
 }

@@ -20,7 +20,7 @@ public class FavouritePresenter {
     }
 
     public void deleteFavMeal(Meal meal){
-        repo.deleteMealLocal(meal);
+        repo.deleteFavMealLocal(meal);
     }
 
 }

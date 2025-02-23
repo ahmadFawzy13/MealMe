@@ -11,6 +11,10 @@ public class HomeMealsPojo {
     private String strMeal;
     private String strMealThumb;
 
+
+    public HomeMealsPojo(){
+
+    }
     public HomeMealsPojo(String idMeal, String strMeal, String strMealThumb) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;

@@ -6,22 +6,20 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-
+import com.example.mealme.CalendarMeal;
 import com.example.mealme.meal_details.model.Meal;
 
 import java.util.List;
 
 @Dao
-public interface MealDao {
-    @Query("SELECT * FROM meals_table")
-    LiveData<List<Meal>> getAllMeals();
+public interface CalendarMealDao {
+    @Query("SELECT * FROM calendar_meals_table WHERE date = :date")
+    LiveData<List<CalendarMeal>> getCalendarMealsByDate(String date);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMeal(Meal meal);
+    void insertMeal(CalendarMeal calendarMeal);
 
     @Delete
-    void deleteMeal(Meal meal);
-
-
+    void deleteMeal(CalendarMeal calendarMeal);
 
 }

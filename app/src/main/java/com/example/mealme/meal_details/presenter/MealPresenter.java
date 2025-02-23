@@ -1,5 +1,6 @@
 package com.example.mealme.meal_details.presenter;
 
+import com.example.mealme.CalendarMeal;
 import com.example.mealme.Reflector;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
@@ -13,7 +14,6 @@ public class MealPresenter implements MealDetailsNetworkCallBack {
 
     Repository repo;
     MealDetailViewer mealDetailViewer;
-
     Reflector reflector;
 
     public MealPresenter(Repository repo, MealDetailViewer mealDetailViewer, Reflector reflector) {
@@ -27,8 +27,10 @@ public class MealPresenter implements MealDetailsNetworkCallBack {
     }
 
     public void insertMeal(Meal meal){
-        repo.insertMealLocal(meal);
+        repo.insertFavMealLocal(meal);
     }
+
+    public void insertCalendarMeal(CalendarMeal calendarMeal){repo.insertCalendarMealLocal(calendarMeal);}
 
     @Override
     public void onMealDetailsSuccessResult(List<Meal> listOfMeals) {

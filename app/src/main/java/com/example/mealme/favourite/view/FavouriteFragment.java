@@ -18,10 +18,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mealme.DeleteMeal;
-import com.example.mealme.ObjectTransfer;
+import com.example.mealme.MealObjectTransfer;
 import com.example.mealme.R;
 import com.example.mealme.favourite.presenter.FavouritePresenter;
-import com.example.mealme.favourite_details.view.FavouriteMealDetailsFragment;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
@@ -32,7 +31,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteFragment extends Fragment implements DeleteMeal, ObjectTransfer {
+public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjectTransfer {
 
     LiveData<List<Meal>>favMeals;
     FavouritePresenter favouritePresenter;

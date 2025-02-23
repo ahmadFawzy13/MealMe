@@ -2,13 +2,12 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/meal_nested_scroll"
+    android:id="@+id/fav_meal_de_nested_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clipToPadding="false"
     android:paddingBottom="100dp">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,40 +20,12 @@
             android:layout_height="308dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="0dp">
-
             <ImageView
-                android:id="@+id/mealDetailsImg"
+                android:id="@+id/mealDetailsImgTwo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/calendarBtn"
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:drawableStart="@drawable/calender"
-                    android:drawableTint="@color/main_theme"
-                    android:textColor="@color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/saveFavBtn"
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="270dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableStart="@drawable/heart_icon"
-                    android:drawableTint="@color/main_theme"
-                    android:textColor="@color/white" />
-            </LinearLayout>
         </FrameLayout>
 
         <androidx.cardview.widget.CardView
@@ -73,7 +44,7 @@
 
 
                 <TextView
-                    android:id="@+id/detailsMealName"
+                    android:id="@+id/favMealDeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -88,7 +59,7 @@
                     tools:text="Meal Name" />
 
                 <TextView
-                    android:id="@+id/detailsCountryName"
+                    android:id="@+id/favMealDeCountry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -96,13 +67,13 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/mealType"
+                    app:layout_constraintEnd_toStartOf="@+id/favMealDeType"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Nationality" />
 
                 <TextView
-                    android:id="@+id/mealType"
+                    android:id="@+id/favMealDeType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -113,7 +84,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/detailsCountryName"
+                    app:layout_constraintStart_toEndOf="@+id/favMealDeCountry"
                     tools:text="Type" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -130,7 +101,7 @@
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_meal_page"
+            android:id="@+id/recycler_fav_meal_details_pageTwo"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -152,7 +123,7 @@
             app:cardElevation="8dp">
 
             <TextView
-                android:id="@+id/mealInstructions"
+                android:id="@+id/fave_meal_de_Instructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -163,23 +134,5 @@
                 android:textSize="18sp"
                 tools:text="Steps" />
         </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppinsbold"
-            android:text="@string/do_it_like_a_pro"
-            android:textColor="@color/main_theme"
-            android:textSize="24sp" />
-
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
-
-
 </androidx.core.widget.NestedScrollView>

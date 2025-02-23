@@ -4,9 +4,11 @@ import androidx.room.Entity;
 
 import com.example.mealme.home.model.RandomMealPojo;
 
+import java.io.Serializable;
+
 
 @Entity(tableName = "meals_table")
-public class Meal extends RandomMealPojo {
+public class Meal extends RandomMealPojo implements Serializable {
     private String strCategory;
     private String strArea;
     private String strTags;

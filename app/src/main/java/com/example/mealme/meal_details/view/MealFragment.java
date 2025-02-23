@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.R;
-import com.example.mealme.Reflection;
+import com.example.mealme.Reflector;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
@@ -28,6 +29,7 @@ import com.example.mealme.meal_details.presenter.MealPresenter;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;
+import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -36,29 +38,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MealFragment extends Fragment implements MealDetailViewer, Reflection {
+public class MealFragment extends Fragment implements MealDetailViewer, Reflector {
 
-
-    MealPresenter mealPresenter;
-    MealAdapter mealAdapter;
-    RecyclerView recyclerView;
+    private MealPresenter mealPresenter;
+    private MealAdapter mealAdapter;
+    private RecyclerView recyclerView;
     private Button calendarBtn;
     private Button saveFavBtn;
     private Calendar calendar;
-    int year;
-    int month;
-    int day;
-    String receivedId;
+    private int year;
+    private int month;
+    private int day;
+    private String receivedId;
 
-    ImageView mealDetailsImg;
-    TextView detailsMealName;
+    private ImageView mealDetailsImg;
+    private TextView detailsMealName;
 
-    TextView mealType;
-    TextView detailsCountryName;
+    private TextView mealType;
+    private TextView detailsCountryName;
 
-    TextView mealInstructions;
+    private TextView mealInstructions;
 
     private YouTubePlayerView youTubePlayerView;
+
+    NestedScrollView nestedScrollView;
+
+    private Meal meal;
 
     public MealFragment() {
 
@@ -92,6 +97,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecti
         mealType = view.findViewById(R.id.mealType);
         detailsCountryName = view.findViewById(R.id.detailsCountryName);
         mealInstructions = view.findViewById(R.id.mealInstructions);
+        nestedScrollView = view.findViewById(R.id.meal_nested_scroll);
 
         recyclerView = view.findViewById(R.id.recycler_meal_page);
         recyclerView.setHasFixedSize(true);
@@ -112,6 +118,14 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecti
         receivedId = MealFragmentArgs.fromBundle(getArguments()).getIdMeal();
         mealPresenter = setUpPresenter();
         mealPresenter.getMealDetails(receivedId);
+
+
+        saveFavBtn.setOnClickListener(v->{
+
+            mealPresenter.insertMeal(meal);
+            Snackbar.make(nestedScrollView,"Saved to Favourites!",Snackbar.LENGTH_SHORT).show();
+
+        });
     }
 
     private MealPresenter setUpPresenter() {
@@ -123,7 +137,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecti
 
     @Override
     public void showMealDetails(List<Meal> listOfMeals) {
-
+        meal = listOfMeals.get(0);
         Glide.with(requireActivity()).load(listOfMeals.get(0).getStrMealThumb()).into(mealDetailsImg);
         detailsMealName.setText(listOfMeals.get(0).getStrMeal());
         mealType.setText(listOfMeals.get(0).getStrCategory());
@@ -137,9 +151,8 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecti
                 youTubePlayer.cueVideo(youtubeId,0);
             }
         });
-
-
     }
+
 
     @Override
     public void showMealDetailsErrorMsg(String err) {
@@ -147,7 +160,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecti
     }
 
     private String youtubeCut(String url){
-        return url.substring(url.indexOf("v=") + 2);
+        return url.substring(url.indexOf("v=")+ 2);
     }
 
     private void datePicker(){

@@ -29,7 +29,8 @@ public class Repository {
         return repo;
     }
 
-    public LiveData<List<Meal>> getAllLocalMeals(){return localSource.getAllMeals();
+    public LiveData<List<Meal>> getAllFavLocalMeals(){
+        return localSource.getAllFavMeals();
     }
     public void insertMealLocal(Meal meal){localSource.insertMeal(meal);}
     public void deleteMealLocal(Meal meal){localSource.deleteMeal(meal);}

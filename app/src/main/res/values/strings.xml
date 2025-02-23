@@ -20,4 +20,7 @@
     <string name="favourites">Favourites</string>
     <string name="calendar">Calendar</string>
     <string name="the_bear">Yes, Chef!</string>
+    <string name="what_you_ll_need">What You\'ll Need:</string>
+    <string name="how_to_do_it">How To Do It:</string>
+    <string name="do_it_like_a_pro">Do It Like a Pro:</string>
 </resources>

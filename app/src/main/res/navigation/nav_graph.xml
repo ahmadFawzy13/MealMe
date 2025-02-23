@@ -66,4 +66,21 @@
             android:name="idMeal"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.mealme.favourite.view.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_favouriteMealDetailsFragment"
+            app:destination="@id/favouriteMealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteMealDetailsFragment"
+        android:name="com.example.mealme.favourite_details.view.FavouriteMealDetailsFragment"
+        android:label="FavouriteMealDetailsFragment" >
+        <argument
+            android:name="meal"
+            app:argType="com.example.mealme.meal_details.model.Meal" />
+    </fragment>
 </navigation>

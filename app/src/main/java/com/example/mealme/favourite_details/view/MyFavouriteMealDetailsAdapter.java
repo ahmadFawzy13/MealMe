@@ -1,4 +1,4 @@
-package com.example.mealme.meal_details.view;
+package com.example.mealme.favourite_details.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,42 +7,37 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.mealme.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.mealme.R;
+
 import java.util.List;
 
-public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
+public class MyFavouriteMealDetailsAdapter extends RecyclerView.Adapter<MyFavouriteMealDetailsAdapter.ViewHolder> {
 
-    private Context context;
-    private List<String>ingredientsList;
+
+    private List<String> ingredientsList;
     private List<String>measuresList;
+    private Context context;
 
-    public MealAdapter(Context context, List<String> ingredientsList, List<String> measuresList) {
+    public MyFavouriteMealDetailsAdapter(List<String> ingredientsList, List<String> measuresList, Context context) {
+        this.ingredientsList = ingredientsList;
+        this.measuresList = measuresList;
         this.context = context;
-        this.ingredientsList = ingredientsList;
-        this.measuresList = measuresList;
-    }
-
-    public void setList(List<String>ingredientsList,List<String>measuresList){
-        this.ingredientsList = ingredientsList;
-        this.measuresList = measuresList;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
+    public MyFavouriteMealDetailsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup recyclerView, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v =inflater.inflate(R.layout.recycler_ingredients,recyclerView,false);
+        View v =inflater.inflate(R.layout.favourite_ing_recycler,recyclerView,false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyFavouriteMealDetailsAdapter.ViewHolder holder, int position) {
         String ingredientName = ingredientsList.get(position);
         String ingNameForUrl = ingredientName.replace(" ","_");
         Glide.with(context).load("https://www.themealdb.com/images/ingredients/"+ingNameForUrl+".png").into(holder.ingredientImg);
@@ -64,9 +59,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ingredientImg = itemView.findViewById(R.id.ingredientImg);
-            ingredientName = itemView.findViewById(R.id.ingredientName);
-            ingredientPortion = itemView.findViewById(R.id.ingredientPortion);
+            ingredientImg = itemView.findViewById(R.id.favIngredientImgRecycler);
+            ingredientName = itemView.findViewById(R.id.favIngredientNameRecycler);
+            ingredientPortion = itemView.findViewById(R.id.favIngredientPortionRecycler);
 
         }
     }

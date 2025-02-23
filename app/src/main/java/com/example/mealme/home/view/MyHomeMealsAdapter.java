@@ -33,8 +33,8 @@ public class MyHomeMealsAdapter extends RecyclerView.Adapter<MyHomeMealsAdapter.
         this.idDelivery = idDelivery;
     }
 
-    public void setList(List<HomeMealsPojo> productsList) {
-        this.response = productsList;
+    public void setList(List<HomeMealsPojo> mealsList) {
+        this.response = mealsList;
     }
 
     @NonNull

@@ -16,7 +16,7 @@ public class MealLocalDataSource {
 
     }
 
-    public LiveData<List<Meal>> getAllMeals(){
+    public LiveData<List<Meal>> getAllFavMeals(){
         return mealDao.getAllMeals();
     }
 

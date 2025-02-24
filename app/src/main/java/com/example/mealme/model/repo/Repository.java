@@ -1,16 +1,18 @@
 package com.example.mealme.model.repo;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
-import com.example.mealme.model.remote.MealDetailsNetworkCallBack;
+import com.example.mealme.model.remote.HomeMealResponse;
+import com.example.mealme.model.remote.MealDetailsResponse;
 import com.example.mealme.model.remote.MealRemoteDataSource;
-import com.example.mealme.model.remote.NetworkCallBack;
-import com.example.mealme.model.remote.RandomMealNetworkCallBack;
+import com.example.mealme.model.remote.RandomMealResponse;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class Repository {
 
@@ -30,24 +32,25 @@ public class Repository {
         return repo;
     }
 
-    public LiveData<List<Meal>> getAllFavLocalMeals(){
+    public Flowable<List<Meal>> getAllFavLocalMeals(){
         return localSource.getAllFavMeals();
     }
-    public void insertFavMealLocal(Meal meal){localSource.insertMeal(meal);}
-    public void deleteFavMealLocal(Meal meal){localSource.deleteMeal(meal);}
-    public void getRandomRemoteMeal(RandomMealNetworkCallBack randomMealNetworkCallBack){
-        remoteSource.makeRandomNetworkCall(randomMealNetworkCallBack);
+    public Completable insertFavMealLocal(Meal meal){
+        return localSource.insertMeal(meal);
     }
-    public void getHomeRemoteMeals(NetworkCallBack networkCallBack){
-        remoteSource.makeNetWorkCall(networkCallBack);
+    public Completable deleteFavMealLocal(Meal meal){return localSource.deleteMeal(meal);}
+    public Single <RandomMealResponse> getRandomRemoteMeal(){
+       return remoteSource.getRandomMeal();
     }
-    public void getMealDetailsRemote(MealDetailsNetworkCallBack mealDetailsNetworkCallBack, String mealId){
-        remoteSource.makeMealDetailNetworkCall(mealDetailsNetworkCallBack,mealId);
+    public Single<HomeMealResponse> getHomeRemoteMeals(){
+        return remoteSource.getHomeMeal();
     }
-
-    public LiveData<List<CalendarMeal>> getCalendarLocalMealsByDate(String date){
+    public Single<MealDetailsResponse> getMealDetailsRemote(String mealId){
+        return remoteSource.getMealDetails(mealId);
+    }
+    public Flowable<List<CalendarMeal>> getCalendarLocalMealsByDate(String date){
         return localSource.getCalendarMealsByDate(date);
     }
-    public void insertCalendarMealLocal(CalendarMeal calendarMeal){localSource.insertCalendarMeal(calendarMeal);}
-    public void deleteCalendarMealLocal(CalendarMeal calendarMeal){localSource.deleteCalenderMeal(calendarMeal);}
+    public Completable insertCalendarMealLocal(CalendarMeal calendarMeal){return localSource.insertCalendarMeal(calendarMeal);}
+    public Completable  deleteCalendarMealLocal(CalendarMeal calendarMeal){return localSource.deleteCalenderMeal(calendarMeal);}
 }

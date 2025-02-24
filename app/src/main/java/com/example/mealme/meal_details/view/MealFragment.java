@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mealme.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.R;
 import com.example.mealme.Reflector;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class MealFragment extends Fragment implements MealDetailViewer, Reflector {
+public class MealFragment extends Fragment implements MealDetailViewer, Reflector, MealDetailsDatabaseOps {
 
     private MealPresenter mealPresenter;
     private MealAdapter mealAdapter;
@@ -120,23 +121,20 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
 
 
         saveFavBtn.setOnClickListener(v->{
-
             mealPresenter.insertMeal(meal);
-            Snackbar.make(nestedScrollView,"Saved to Favourites!",Snackbar.LENGTH_SHORT).show();
 
         });
 
         calendarBtn.setOnClickListener(v->{
             datePicker();
         });
-
     }
 
     private MealPresenter setUpPresenter() {
         MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
         MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
         Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
-        return new MealPresenter(repo,this,this);
+        return new MealPresenter(repo,this,this,this );
     }
 
     @Override
@@ -175,7 +173,6 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
                 String date = String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(dayOfMonth);
                 calendarMeal = new CalendarMeal(meal,date);
                 mealPresenter.insertCalendarMeal(calendarMeal);
-                Snackbar.make(nestedScrollView,"Saved To Calendar!",Snackbar.LENGTH_SHORT).show();
 
             }   
         }, year, month, day);
@@ -189,5 +186,25 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     @Override
     public void reflectedLists(List<String> ingredientsList, List<String> measuresList) {
         mealAdapter.setList(ingredientsList,measuresList);
+    }
+
+    @Override
+    public void onSuccessLocalInsertion(String success) {
+        Snackbar.make(nestedScrollView,success,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailedLocalInsertion(String err) {
+        Snackbar.make(nestedScrollView,err,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessCalendarInsertion(String success) {
+        Snackbar.make(nestedScrollView,success,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailedCalendarInsertion(String err) {
+        Snackbar.make(nestedScrollView,err,Snackbar.LENGTH_SHORT).show();
     }
 }

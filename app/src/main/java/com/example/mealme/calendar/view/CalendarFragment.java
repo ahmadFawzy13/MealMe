@@ -15,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
+import com.example.mealme.CalendarViewer;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.CalendarMealObjectTransfer;
 import com.example.mealme.DeleteCalendarMeal;
@@ -32,22 +34,21 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class CalendarFragment extends Fragment implements DeleteCalendarMeal, CalendarMealObjectTransfer {
+public class CalendarFragment extends Fragment implements DeleteCalendarMeal, CalendarMealObjectTransfer, CalendarViewer {
 
     private Calendar calendar;
     private int year;
     private int month;
     private int day;
+    List<CalendarMeal>calendarMealList;
     View view;
     RecyclerView recyclerView;
     DatePicker datePicker;
-    LiveData<List<CalendarMeal>> calendarMealsListByDate;
     CalendarPresenter calendarPresenter;
-
     MyCalendarAdapter myCalendarAdapter;
     String date;
-    public CalendarFragment() {
 
+    public CalendarFragment() {
     }
 
     @Override
@@ -82,35 +83,10 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
 
         date = year+"/"+month+"/"+day;
         calendarPresenter = setUpPresenter();
-        calendarMealsListByDate = calendarPresenter.getCalendarMealByDate(date);
+        calendarPresenter.getCalendarMealByDate(date);
 
         myCalendarAdapter = new MyCalendarAdapter(requireActivity(),new ArrayList<>(),this,this);
         recyclerView.setAdapter(myCalendarAdapter);
-
-        Observer<List<CalendarMeal>> calendarMealsObserver = new Observer<List<CalendarMeal>>() {
-            @Override
-            public void onChanged(List<CalendarMeal> calendarMeals) {
-                myCalendarAdapter.setList(calendarMeals);
-            }
-        };
-        calendarMealsListByDate.observe(getViewLifecycleOwner(),calendarMealsObserver);
-
-
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                 date = String.valueOf(year)+"/"+String.valueOf(monthOfYear)+"/"+String.valueOf(dayOfMonth);
-                calendarMealsListByDate = calendarPresenter.getCalendarMealByDate(date);
-
-                Observer<List<CalendarMeal>> calendarMealDateObserver = new Observer<List<CalendarMeal>>() {
-                    @Override
-                    public void onChanged(List<CalendarMeal> calendarMeals) {
-                        myCalendarAdapter.setList(calendarMeals);
-                    }
-                };
-                calendarMealsListByDate.observe(getViewLifecycleOwner(),calendarMealDateObserver);
-            }
-        });
 
         datePicker.setMinDate(System.currentTimeMillis());
         calendar.add(Calendar.DAY_OF_MONTH,6);
@@ -122,7 +98,7 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
         MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
         MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
         Repository repository = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
-        return new CalendarPresenter(repository);
+        return new CalendarPresenter(repository,this);
     }
 
     @Override
@@ -134,5 +110,22 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
         CalendarFragmentDirections.ActionCalendarFragmentToCalendarDetailsFragment action =
                 CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailsFragment(calendarMeal);
                 Navigation.findNavController(view).navigate(action);
+    }
+
+    @Override
+    public void onCalendarMealSuccess(List<CalendarMeal> calendarMeal) {
+            myCalendarAdapter.setList(calendarMeal);
+        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                date = String.valueOf(year)+"/"+String.valueOf(monthOfYear)+"/"+String.valueOf(dayOfMonth);
+                calendarPresenter.getCalendarMealByDate(date);
+                    myCalendarAdapter.setList(calendarMeal);
+            };
+        });
+    }
+    @Override
+    public void onCalendarMealFailed(String error) {
+        Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show();
     }
 }

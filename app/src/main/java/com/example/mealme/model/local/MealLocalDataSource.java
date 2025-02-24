@@ -8,58 +8,43 @@ import com.example.mealme.meal_details.model.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+
 public class MealLocalDataSource {
 
     MealDao mealDao;
+    Flowable<List<Meal>> mealStorage;
     CalendarMealDao calendarMealDao;
     public MealLocalDataSource(Context context) {
         AppDataBase db = AppDataBase.getInstance(context);
         mealDao = db.getMealDao();
         calendarMealDao = db.getCalendarMealDao();
-
+        mealStorage = mealDao.getAllMeals();
     }
 
-    public LiveData<List<Meal>> getAllFavMeals(){
-        return mealDao.getAllMeals();
+    public Flowable<List<Meal>> getAllFavMeals(){
+        return mealStorage;
     }
 
-    public void insertMeal(Meal meal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDao.insertMeal(meal);
-            }
-        }).start();
+    public Completable insertMeal(Meal meal){
+        return mealDao.insertMeal(meal);
     }
 
-    public void deleteMeal(Meal meal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mealDao.deleteMeal(meal);
-            }
-        }).start();
+    public Completable deleteMeal(Meal meal){
+        return mealDao.deleteMeal(meal);
     }
 
-    public LiveData<List<CalendarMeal>> getCalendarMealsByDate(String date){
+    public Flowable<List<CalendarMeal>> getCalendarMealsByDate(String date){
         return calendarMealDao.getCalendarMealsByDate(date);
     }
 
-    public void insertCalendarMeal(CalendarMeal calendarMeal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                calendarMealDao.insertMeal(calendarMeal);
-            }
-        }).start();
+    public Completable insertCalendarMeal(CalendarMeal calendarMeal){
+             return calendarMealDao.insertMeal(calendarMeal);
     }
 
-    public void deleteCalenderMeal(CalendarMeal calendarMeal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                calendarMealDao.deleteMeal(calendarMeal);
-            }
-        }).start();
+    public Completable deleteCalenderMeal(CalendarMeal calendarMeal){
+          return calendarMealDao.deleteMeal(calendarMeal);
     }
 }

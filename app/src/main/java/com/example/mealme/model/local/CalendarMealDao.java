@@ -10,15 +10,19 @@ import com.example.mealme.calendar.model.CalendarMeal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+
 @Dao
 public interface CalendarMealDao {
     @Query("SELECT * FROM calendar_meals_table WHERE date = :date")
-    LiveData<List<CalendarMeal>> getCalendarMealsByDate(String date);
+    Flowable<List<CalendarMeal>> getCalendarMealsByDate(String date);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMeal(CalendarMeal calendarMeal);
+    Completable insertMeal(CalendarMeal calendarMeal);
 
     @Delete
-    void deleteMeal(CalendarMeal calendarMeal);
+    Completable deleteMeal(CalendarMeal calendarMeal);
 
 }

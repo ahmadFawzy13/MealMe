@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.mealme.DeleteMeal;
+import com.example.mealme.FavouriteMealViewer;
 import com.example.mealme.MealObjectTransfer;
 import com.example.mealme.R;
 import com.example.mealme.favourite.presenter.FavouritePresenter;
@@ -31,19 +32,16 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjectTransfer {
-
-    LiveData<List<Meal>>favMeals;
+public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjectTransfer, FavouriteMealViewer {
     FavouritePresenter favouritePresenter;
     MyFavouriteAdapter myFavouriteAdapter;
     RecyclerView recyclerView;
     Button deleteFavBtn;
     ConstraintLayout constraintLayout;
-
+    List<Meal>favouriteMealList;
     View view;
     public FavouriteFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +53,6 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjec
         ((MainActivity) requireActivity()).showBottomNav(true);
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -71,27 +68,17 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjec
 
         favouritePresenter = setFavouritePresenter();
 
-
         myFavouriteAdapter = new MyFavouriteAdapter(requireActivity(),new ArrayList<>(),this,this);
         recyclerView.setAdapter(myFavouriteAdapter);
 
-        favMeals = favouritePresenter.getFavMealLocal();
-        Observer<List<Meal>> favMealsObserver = new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> meals) {
-                myFavouriteAdapter.setList(meals);
-            }
-        };
-        favMeals.observe(getViewLifecycleOwner(),favMealsObserver);
-
+        favouritePresenter.getFavMealLocal();
     }
-
 
     private FavouritePresenter setFavouritePresenter(){
         MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
         MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
         Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
-        return new FavouritePresenter(repo);
+        return new FavouritePresenter(repo,this);
     }
 
     @Override
@@ -105,5 +92,25 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjec
         FavouriteFragmentDirections.ActionFavouriteFragmentToFavouriteMealDetailsFragment action =
             FavouriteFragmentDirections.actionFavouriteFragmentToFavouriteMealDetailsFragment(meal);
                 Navigation.findNavController(view).navigate(action);
+    }
+
+    @Override
+    public void onFavouriteMealSuccess(List<Meal> favouriteMealsList) {
+        myFavouriteAdapter.setList(favouriteMealsList);
+    }
+
+    @Override
+    public void onFavouriteMealFailure(String error) {
+        Snackbar.make(constraintLayout,error,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFavMealDeletionSuccess(String success) {
+        Snackbar.make(constraintLayout,success,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFavMealDeletionFailure(String err) {
+        Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 }

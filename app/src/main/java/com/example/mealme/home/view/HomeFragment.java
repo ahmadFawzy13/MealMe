@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import com.example.mealme.R;
 import com.example.mealme.home.model.RandomMealPojo;
 import com.example.mealme.home.model.HomeMealsPojo;
 import com.example.mealme.model.repo.Repository;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -38,8 +40,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
     HomePresenter homePresenter;
     MyHomeMealsAdapter myHomeMealsAdapter;
     View view;
-
-    private static final String TAG = "HomeFragment";
+    ConstraintLayout constraintLayout;
 
     public HomeFragment() {
     }
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         randomMealDesc = view.findViewById(R.id.randomMealDesc);
         randomMealName = view.findViewById(R.id.randomMealName);
         randomMealPhoto = view.findViewById(R.id.randomMealPhoto);
+        constraintLayout = view.findViewById(R.id.constraintHome_layout);
         this.view = view;
 
         homePresenter = setupPresenter();
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
 
     @Override
     public void showHomeMealErrorMsg(String err) {
-        Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
+        Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
 
     @Override
     public void showRandomMealErrorMsg(String err) {
-        Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
+        Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

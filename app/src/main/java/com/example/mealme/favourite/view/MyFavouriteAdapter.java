@@ -56,6 +56,7 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
             Glide.with(context).load(favMeals.get(position).getStrMealThumb()).into(holder.favMealImg);
 
             holder.deleteFavButton.setOnClickListener(v->{
+
                 meal = favMeals.get(position);
                 deleteMeal.mealToDelete(meal);
             });

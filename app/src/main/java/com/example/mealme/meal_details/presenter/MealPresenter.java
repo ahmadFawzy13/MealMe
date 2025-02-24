@@ -1,5 +1,6 @@
 package com.example.mealme.meal_details.presenter;
 
+import com.example.mealme.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.Reflector;
 import com.example.mealme.meal_details.model.Meal;
@@ -10,60 +11,114 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealPresenter implements MealDetailsNetworkCallBack {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class MealPresenter{
 
     Repository repo;
     MealDetailViewer mealDetailViewer;
     Reflector reflector;
+    MealDetailsDatabaseOps mealDetailsDatabaseOps;
 
-    public MealPresenter(Repository repo, MealDetailViewer mealDetailViewer, Reflector reflector) {
+
+    public MealPresenter(Repository repo, MealDetailViewer mealDetailViewer, Reflector reflector, MealDetailsDatabaseOps mealDetailsDatabaseOps) {
         this.repo = repo;
         this.mealDetailViewer = mealDetailViewer;
         this.reflector = reflector;
+        this.mealDetailsDatabaseOps = mealDetailsDatabaseOps;
     }
 
     public void getMealDetails(String idMeal){
-        repo.getMealDetailsRemote(this,idMeal);
+        repo.getMealDetailsRemote(idMeal)
+                .subscribeOn(Schedulers.io())
+                .map(item->item.getListOfMealsResponse())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Meal>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        Meal meal = meals.get(0);
+                        List<String>ingredientsList = new ArrayList<>();
+                        List<String>measuresList = new ArrayList<>();
+
+                        for(int i = 1; i <= 20; i++){
+                            try {
+                                String ingredient = (String) Meal.class.getMethod("getStrIngredient" + i).invoke(meal);
+                                String measure = (String) Meal.class.getMethod("getStrMeasure" + i).invoke(meal);
+
+                                if(ingredient != null && !ingredient.isEmpty()){
+                                    ingredientsList.add(ingredient);
+                                    measuresList.add(measure);
+                                }
+                            } catch (IllegalAccessException e) {
+                                throw new RuntimeException(e);
+                            } catch (InvocationTargetException e) {
+                                throw new RuntimeException(e);
+                            } catch (NoSuchMethodException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        mealDetailViewer.showMealDetails(meals);
+                        reflector.reflectedLists(ingredientsList,measuresList);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mealDetailViewer.showMealDetailsErrorMsg(e.getLocalizedMessage());
+                    }
+                });
     }
 
     public void insertMeal(Meal meal){
-        repo.insertFavMealLocal(meal);
+        repo.insertFavMealLocal(meal)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mealDetailsDatabaseOps.onSuccessLocalInsertion("Added To Favourites");
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mealDetailsDatabaseOps.onFailedLocalInsertion("Couldn't Add to Favourites");
+                    }
+                });
     }
 
-    public void insertCalendarMeal(CalendarMeal calendarMeal){repo.insertCalendarMealLocal(calendarMeal);}
+    public void insertCalendarMeal(CalendarMeal calendarMeal){
+        repo.insertCalendarMealLocal(calendarMeal)
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
-    @Override
-    public void onMealDetailsSuccessResult(List<Meal> listOfMeals) {
+                    }
 
-        Meal meal = listOfMeals.get(0);
-        List<String>ingredientsList = new ArrayList<>();
-        List<String>measuresList = new ArrayList<>();
+                    @Override
+                    public void onComplete() {
+                        mealDetailsDatabaseOps.onSuccessCalendarInsertion("Added To Calendar");
+                    }
 
-        for(int i = 1; i <= 20; i++){
-            try {
-                String ingredient = (String) Meal.class.getMethod("getStrIngredient" + i).invoke(meal);
-                String measure = (String) Meal.class.getMethod("getStrMeasure" + i).invoke(meal);
-
-                if(ingredient != null && !ingredient.isEmpty()){
-                    ingredientsList.add(ingredient);
-                    measuresList.add(measure);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        mealDetailViewer.showMealDetails(listOfMeals);
-        reflector.reflectedLists(ingredientsList,measuresList);
-
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mealDetailsDatabaseOps.onFailedCalendarInsertion("Couldn't Add To Calendar");
+                    }
+                });
     }
 
-    @Override
-    public void onMealDetailsFailedResult(String errorMessage) {
-       mealDetailViewer.showMealDetailsErrorMsg(errorMessage);
-    }
 }

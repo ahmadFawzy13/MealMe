@@ -1,6 +1,6 @@
 package com.example.mealme.meal_details.presenter;
 
-import com.example.mealme.CalendarMeal;
+import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.Reflector;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;

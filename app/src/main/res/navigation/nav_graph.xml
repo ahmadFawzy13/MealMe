@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/calendarFragment">
+    app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.mealme.login.view.LoginFragment"
@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_profileFragment_to_favouriteFragment"
             app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealFragment"
@@ -90,5 +93,17 @@
         android:id="@+id/calendarFragment"
         android:name="com.example.mealme.calendar.view.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_calendarDetailsFragment"
+            app:destination="@id/calendarDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarDetailsFragment"
+        android:name="com.example.mealme.calendar_details.view.CalendarDetailsFragment"
+        android:label="CalendarDetailsFragment" >
+        <argument
+            android:name="calenderMeal"
+            app:argType="com.example.mealme.calendar.model.CalendarMeal" />
+    </fragment>
 </navigation>

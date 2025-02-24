@@ -63,5 +63,9 @@ public class ProfileFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_favouriteFragment);
         });
 
+        wklyPlnBtn.setOnClickListener(v->{
+            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_calendarFragment);
+        });
+
     }
 }

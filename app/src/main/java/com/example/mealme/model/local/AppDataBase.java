@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.mealme.CalendarMeal;
+import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.meal_details.model.Meal;
 
 @Database(entities = {Meal.class, CalendarMeal.class}, version = 1)

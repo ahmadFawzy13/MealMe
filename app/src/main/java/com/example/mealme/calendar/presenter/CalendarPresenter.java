@@ -2,11 +2,9 @@ package com.example.mealme.calendar.presenter;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.mealme.CalendarMeal;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.model.repo.Repository;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class CalendarPresenter {

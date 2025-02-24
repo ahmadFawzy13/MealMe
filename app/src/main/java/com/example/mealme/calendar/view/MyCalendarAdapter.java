@@ -12,11 +12,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.CalendarMeal;
+import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.CalendarMealObjectTransfer;
 import com.example.mealme.DeleteCalendarMeal;
-import com.example.mealme.DeleteMeal;
-import com.example.mealme.MealObjectTransfer;
 import com.example.mealme.R;
 import com.google.android.material.imageview.ShapeableImageView;
 

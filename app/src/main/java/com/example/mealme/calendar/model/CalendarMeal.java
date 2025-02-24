@@ -1,12 +1,14 @@
-package com.example.mealme;
+package com.example.mealme.calendar.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import com.example.mealme.meal_details.model.Meal;
 
+import java.io.Serializable;
+
 @Entity(tableName = "calendar_meals_table",primaryKeys = {"idMeal","date"})
-public class CalendarMeal extends Meal{
+public class CalendarMeal extends Meal implements Serializable {
     @NonNull
     String date;
     public CalendarMeal(Meal meal, @NonNull String date) {

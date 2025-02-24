@@ -2,12 +2,13 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fav_meal_de_nested_scroll"
+    android:id="@+id/meal_nested_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clipToPadding="false"
     android:paddingBottom="100dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,12 +21,20 @@
             android:layout_height="308dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="0dp">
+
             <ImageView
-                android:id="@+id/mealDetailsImgTwo"
+                android:id="@+id/calendarDetailsImgPage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:padding="16dp"/>
         </FrameLayout>
 
         <androidx.cardview.widget.CardView
@@ -44,7 +53,7 @@
 
 
                 <TextView
-                    android:id="@+id/favMealDeName"
+                    android:id="@+id/calendarDetailsMealName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -59,7 +68,7 @@
                     tools:text="Meal Name" />
 
                 <TextView
-                    android:id="@+id/favMealDeCountry"
+                    android:id="@+id/calendarDetailsCountryNamee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -67,13 +76,13 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/favMealDeType"
+                    app:layout_constraintEnd_toStartOf="@+id/calendarDetailsMealTypee"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Nationality" />
 
                 <TextView
-                    android:id="@+id/favMealDeType"
+                    android:id="@+id/calendarDetailsMealTypee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -84,7 +93,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/favMealDeCountry"
+                    app:layout_constraintStart_toEndOf="@+id/calendarDetailsCountryNamee"
                     tools:text="Type" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -101,7 +110,7 @@
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_fav_meal_details_pageTwo"
+            android:id="@+id/recycler_calendar_meal_details_pagee"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -123,7 +132,7 @@
             app:cardElevation="8dp">
 
             <TextView
-                android:id="@+id/fave_meal_de_Instructions"
+                android:id="@+id/calendar_meal_details_instructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -146,8 +155,11 @@
             android:textSize="24sp" />
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/fav_details_youtube_player_view"
+            android:id="@+id/calendar_details_youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
+
+
 </androidx.core.widget.NestedScrollView>

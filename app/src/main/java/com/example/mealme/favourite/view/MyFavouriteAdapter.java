@@ -22,15 +22,11 @@ import java.util.List;
 
 public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.ViewHolder> {
 
-
         private Context context;
         private List<Meal> favMeals;
-
         DeleteMeal deleteMeal;
-
         MealObjectTransfer mealObjectTransfer;
         Meal meal;
-
 
     public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, MealObjectTransfer mealObjectTransfer) {
         this.context = context;

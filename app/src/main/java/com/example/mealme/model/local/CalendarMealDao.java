@@ -6,8 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import com.example.mealme.CalendarMeal;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.calendar.model.CalendarMeal;
 
 import java.util.List;
 

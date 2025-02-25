@@ -27,6 +27,7 @@ import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -83,8 +84,16 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, MealObjec
 
     @Override
     public void mealToDelete(Meal meal) {
-        favouritePresenter.deleteFavMeal(meal);
-        Snackbar.make(constraintLayout,"Removed From Favourites",Snackbar.LENGTH_SHORT).show();
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Meal")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    favouritePresenter.deleteFavMeal(meal);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+
+                })
+                .show();
     }
 
     @Override

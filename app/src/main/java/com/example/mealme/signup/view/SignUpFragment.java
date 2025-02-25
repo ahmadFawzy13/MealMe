@@ -15,24 +15,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.mealme.SignUpHandler;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.R;
+import com.example.mealme.signup.presenter.SignUpPresenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class SignUpFragment extends Fragment {
+public class SignUpFragment extends Fragment implements SignUpHandler {
 
-    EditText usernameSignUp,emailSignUp,passwordSignUp,confirmPasswordSignUp;
-    Button signUpBtn;
-
-    FirebaseAuth firebaseAuth;
-
-    ConstraintLayout constraintSignUp;
-
-    View view;
+    private EditText usernameSignUp,emailSignUp,passwordSignUp,confirmPasswordSignUp;
+    private Button signUpBtn;
+    private ConstraintLayout constraintSignUp;
+    private View view;
+    private SignUpPresenter signUpPresenter;
 
     public SignUpFragment() {
 
@@ -41,7 +40,6 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -60,66 +58,47 @@ public class SignUpFragment extends Fragment {
         signUpBtn = view.findViewById(R.id.loginBtn);
         confirmPasswordSignUp = view.findViewById(R.id.confirmPasswordSignUp);
         constraintSignUp = view.findViewById(R.id.signUpLayout);
-        firebaseAuth = FirebaseAuth.getInstance();
+        signUpPresenter = new SignUpPresenter(requireActivity(),this);
         this.view = view;
-        signUpBtn.setOnClickListener(v->createAccount());
 
+
+
+        signUpBtn.setOnClickListener(v->{
+            String username = usernameSignUp.getText().toString().trim();
+            String email = emailSignUp.getText().toString().trim();
+            String password = passwordSignUp.getText().toString().trim();
+            String confirmPassword = confirmPasswordSignUp.getText().toString().trim();
+            signUpPresenter.createAccount(username,email,password,confirmPassword);
+        });
+    }
+    @Override
+    public void onUsernameError(String err) {
+        usernameSignUp.setError(err);
     }
 
-    private void createAccount(){
-
-        String username = usernameSignUp.getText().toString();
-        String email = emailSignUp.getText().toString();
-        String password = passwordSignUp.getText().toString();
-        String confirmPassword = confirmPasswordSignUp.getText().toString();
-        boolean isValid = validateCredentials(username,email,password,confirmPassword);
-        if(!isValid){
-            return;
-        }
-        createFirebaseAccount(username,email,password);
+    @Override
+    public void onEmailError(String err) {
+        emailSignUp.setError(err);
     }
 
-    boolean validateCredentials(String username, String email, String password, String confirmPassword){
-
-        if(username.isEmpty()){
-            usernameSignUp.setError("Please Insert a Username");
-            return false;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailSignUp.setError("Invalid Email");
-            return false;
-        }
-        if(password.length() < 6){
-            passwordSignUp.setError("Password Too Short");
-            return false;
-        }
-        if(!password.equals(confirmPassword)){
-            confirmPasswordSignUp.setError("Password Doesn't Match");
-            return false;
-        }
-        return true;
+    @Override
+    public void onPasswordLengthError(String err) {
+        passwordSignUp.setError(err);
     }
 
-    private void createFirebaseAccount(String username, String email, String password) {
-
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        snackBar(task.isSuccessful());
-                        Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_homeFragment);
-                        //or making email confirmation (de el sheyaka kolaha)
-                    }
-                });
+    @Override
+    public void onConfirmPasswordMismatch(String err) {
+        confirmPasswordSignUp.setError(err);
     }
 
-    private void snackBar(boolean created){
-        String snackText;
-        if(created) {
-            snackText = "Account Created Successfully";
-        } else{
-            snackText = "Failed to Create Account";
-        }
-        Snackbar.make(constraintSignUp,snackText,Snackbar.LENGTH_SHORT).show();
+    @Override
+    public void onSignUpSuccess(String msg) {
+        Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_homeFragment);
+        Snackbar.make(constraintSignUp,msg,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSignUpFailure(String err) {
+        Snackbar.make(constraintSignUp,err,Snackbar.LENGTH_SHORT).show();
     }
 }

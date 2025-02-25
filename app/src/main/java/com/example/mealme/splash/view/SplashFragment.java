@@ -13,16 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.mealme.SplashAnimHandler;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.R;
+import com.example.mealme.splash.presenter.SplashPresenter;
 
 
-public class SplashFragment extends Fragment {
-
-    private Handler handler;
-    private Runnable runnable;
+public class SplashFragment extends Fragment implements SplashAnimHandler {
 
     private LottieAnimationView splashScreen;
+
+    View view;
 
 
     public SplashFragment() {
@@ -43,24 +44,15 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        this.view = view;
         splashScreen = view.findViewById(R.id.splashScreen);
         splashScreen.setSpeed(1.8f);
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_loginFragment);
-
-            }
-        };
-        handler.postDelayed(runnable,3200);
+        SplashPresenter splashPresenter = new SplashPresenter(this);
+        splashPresenter.SplashAnimeAction();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        handler.removeCallbacks(runnable);
+    public void animHandler() {
+        Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_loginFragment);
     }
 }

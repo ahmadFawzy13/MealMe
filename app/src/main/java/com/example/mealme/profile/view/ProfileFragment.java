@@ -16,47 +16,52 @@ import android.widget.Button;
 
 import com.example.mealme.R;
 import com.example.mealme.main.view.MainActivity;
+import com.example.mealme.profile.presenter.ProfilePresenter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
-
     Button wklyPlnBtn;
     Button fvrtBtn;
     Button signOutBtn;
-
-    FirebaseAuth firebaseAuth;
+    ProfilePresenter profilePresenter;
 
     public ProfileFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          ((MainActivity) requireActivity()).showBottomNav(true);
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         wklyPlnBtn = view.findViewById(R.id.wklyPlnBtn);
         fvrtBtn = view.findViewById(R.id.fvrtBtn);
         signOutBtn = view.findViewById(R.id.signOutBtn);
-        firebaseAuth = FirebaseAuth.getInstance();
+        profilePresenter = new ProfilePresenter();
 
         signOutBtn.setOnClickListener(v -> {
-            firebaseAuth.signOut();
-            NavOptions navOptions = new NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph, true)
-                    .build();
-            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_loginFragment, null, navOptions);
-            Snackbar.make(view, "Signed out", Snackbar.LENGTH_SHORT).show();
+            new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Sign Out")
+                    .setMessage("Are you sure you want to sign out?")
+                    .setPositiveButton("Sign Out", (dialog, which) -> {
+                        profilePresenter.onSignOutAction();
+                        NavOptions navOptions = new NavOptions.Builder()
+                                .setPopUpTo(R.id.nav_graph, true)
+                                .build();
+                        Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_loginFragment, null, navOptions);
+                        Snackbar.make(view, "Signed out", Snackbar.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> {
+                    })
+                    .show();
         });
 
         fvrtBtn.setOnClickListener(v->{
@@ -66,6 +71,5 @@ public class ProfileFragment extends Fragment {
         wklyPlnBtn.setOnClickListener(v->{
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_calendarFragment);
         });
-
     }
 }

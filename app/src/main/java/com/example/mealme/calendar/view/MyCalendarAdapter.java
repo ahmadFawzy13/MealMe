@@ -6,18 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.CalendarMealObjectTransfer;
 import com.example.mealme.DeleteCalendarMeal;
 import com.example.mealme.R;
 import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.List;
 
 public class MyCalendarAdapter extends RecyclerView.Adapter<MyCalendarAdapter.ViewHolder> {

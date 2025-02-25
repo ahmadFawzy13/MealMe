@@ -28,6 +28,7 @@ import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,7 +104,17 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
 
     @Override
     public void calendarMealToDelete(CalendarMeal calendarMeal) {
-        calendarPresenter.deleteCalendarMeal(calendarMeal);
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Meal")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    calendarPresenter.deleteCalendarMeal(calendarMeal);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+
+                })
+                .show();
     }
     @Override
     public void calendarMealObjectTransfer(CalendarMeal calendarMeal) {

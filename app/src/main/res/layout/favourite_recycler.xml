@@ -36,11 +36,11 @@
 
             <TextView
                 android:id="@+id/favMealName"
-                android:layout_width="226dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="225dp"
+                android:layout_height="67dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/poppinssemibold"
                 android:gravity="left"
                 android:paddingTop="6dp"
@@ -48,35 +48,35 @@
                 android:text="Meal Name"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/favType"
                 app:layout_constraintEnd_toStartOf="@+id/deleteFavBtn"
-                app:layout_constraintStart_toEndOf="@+id/favMealImg"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/favCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/poppinssemibold"
-                android:text="Country"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/favMealImg"
-                app:layout_constraintTop_toBottomOf="@+id/favMealName" />
+                app:layout_constraintStart_toEndOf="@+id/favMealImg" />
 
             <TextView
                 android:id="@+id/favType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/poppinssemibold"
                 android:text="Type"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/favCountry"
-                app:layout_constraintTop_toBottomOf="@+id/favMealName" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/favCountry" />
+
+            <TextView
+                android:id="@+id/favCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/poppinssemibold"
+                android:text="Country"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/favMealImg" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/deleteFavBtn"

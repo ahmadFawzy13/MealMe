@@ -158,10 +158,9 @@
         android:drawableStart="@drawable/icons8_google"
         android:drawablePadding="10dp"
         android:fontFamily="@font/poppinssemibold"
-        android:gravity="left"
+        android:gravity="start"
         android:inputType="text"
         android:padding="10dp"
-
         android:text="@string/continute_with_google"
         android:textColor="#615C5C"
         android:textSize="16sp"

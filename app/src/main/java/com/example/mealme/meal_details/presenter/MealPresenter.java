@@ -5,7 +5,6 @@ import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.Reflector;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
-import com.example.mealme.model.remote.MealDetailsNetworkCallBack;
 import com.example.mealme.model.repo.Repository;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

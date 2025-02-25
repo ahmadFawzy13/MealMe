@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
-
     }
 
     @Override

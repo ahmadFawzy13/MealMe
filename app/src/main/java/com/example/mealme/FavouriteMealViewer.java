@@ -7,7 +7,6 @@ import java.util.List;
 public interface FavouriteMealViewer {
     void onFavouriteMealSuccess(List<Meal> favouriteMealsList);
     void onFavouriteMealFailure(String error);
-
     void onFavMealDeletionSuccess(String success);
     void onFavMealDeletionFailure(String err);
 }

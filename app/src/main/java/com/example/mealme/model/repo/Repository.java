@@ -3,7 +3,10 @@ package com.example.mealme.model.repo;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
+import com.example.mealme.model.remote.CategorySearchResponse;
+import com.example.mealme.model.remote.CountrySearchResponse;
 import com.example.mealme.model.remote.HomeMealResponse;
+import com.example.mealme.model.remote.IngredientSearchResponse;
 import com.example.mealme.model.remote.MealDetailsResponse;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.remote.RandomMealResponse;
@@ -24,14 +27,12 @@ public class Repository {
         this.remoteSource = remoteSource;
         this.localSource = localSource;
     }
-
     public static Repository getInstance(MealRemoteDataSource remoteSource, MealLocalDataSource localSource){
         if(repo == null){
             repo = new Repository(remoteSource,localSource);
         }
         return repo;
     }
-
     public Flowable<List<Meal>> getAllFavLocalMeals(){
         return localSource.getAllFavMeals();
     }
@@ -53,4 +54,13 @@ public class Repository {
     }
     public Completable insertCalendarMealLocal(CalendarMeal calendarMeal){return localSource.insertCalendarMeal(calendarMeal);}
     public Completable  deleteCalendarMealLocal(CalendarMeal calendarMeal){return localSource.deleteCalenderMeal(calendarMeal);}
+    public Single<CategorySearchResponse>getSearchCategories(){
+        return remoteSource.getSearchCategories();
+    }
+    public Single<CountrySearchResponse>getSearchCountries(){
+        return remoteSource.getSearchCountries();
+    }
+    public Single<IngredientSearchResponse>getSearchIngredients(){
+        return remoteSource.getSearchIngredients();
+    }
 }

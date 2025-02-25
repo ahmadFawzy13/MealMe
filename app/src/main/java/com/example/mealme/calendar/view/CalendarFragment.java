@@ -104,7 +104,6 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
 
     @Override
     public void calendarMealToDelete(CalendarMeal calendarMeal) {
-
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Delete Meal")
                 .setMessage("Are you sure you want to delete this item?")
@@ -122,7 +121,6 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
                 CalendarFragmentDirections.actionCalendarFragmentToCalendarDetailsFragment(calendarMeal);
                 Navigation.findNavController(view).navigate(action);
     }
-
     @Override
     public void onCalendarMealSuccess(List<CalendarMeal> calendarMeal) {
             myCalendarAdapter.setList(calendarMeal);

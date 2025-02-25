@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MealRemoteDataSource {
 
     public static final String TAG = "Home Meals Client";
-    private static final String BASE_URL = "https://www.themealdb.com/";
+    private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     private MealsApi mealsApi;
     public MealRemoteDataSource(){
 
@@ -24,7 +24,6 @@ public class MealRemoteDataSource {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
-
         mealsApi = retrofit.create(MealsApi.class);
     }
 
@@ -38,5 +37,17 @@ public class MealRemoteDataSource {
 
     public Single<MealDetailsResponse>getMealDetails(String idMeal){
         return mealsApi.getMealDetails(idMeal);
+    }
+
+    public Single<CategorySearchResponse>getSearchCategories(){
+        return mealsApi.getSearchCategories();
+    }
+
+    public Single<CountrySearchResponse>getSearchCountries(){
+        return mealsApi.getSearchCountries();
+    }
+
+    public Single<IngredientSearchResponse>getSearchIngredients(){
+        return mealsApi.getSearchIngredients();
     }
 }

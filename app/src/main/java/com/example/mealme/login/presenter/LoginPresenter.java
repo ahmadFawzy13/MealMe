@@ -27,7 +27,6 @@ public class LoginPresenter {
         if(!isValid){
             return;
         }
-
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override

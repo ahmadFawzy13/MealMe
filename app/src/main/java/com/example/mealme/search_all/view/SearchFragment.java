@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.example.mealme.CategorySearchViewer;
 import com.example.mealme.CountrySearchViewer;
@@ -30,9 +33,10 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements CountrySearchViewer, CategorySearchViewer, IngredientSearchViewer {
+public class SearchFragment extends Fragment implements CountrySearchViewer, CategorySearchViewer, IngredientSearchViewer{
 
     private TextInputEditText textInputEditText;
     private ChipGroup chipGroup;
@@ -43,6 +47,9 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     RecyclerView recyclerView;
     ConstraintLayout searchConstraint;
     View view;
+    String chipText;
+    MySearchAdapter mySearchAdapter;
+    List<CategorySearchPojo>searchCategories;
 
     public SearchFragment() {
     }
@@ -71,7 +78,7 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
         this.view = view;
 
         recyclerView = view.findViewById(R.id.recyclerSearch);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireActivity(),3,
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireActivity(),2,
                 RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -79,6 +86,24 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
         searchPresenter.getSearchCategories();
         searchPresenter.getSearchCountries();
         searchPresenter.getSearchIngredients();
+
+        mySearchAdapter = new MySearchAdapter(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),requireActivity(),"Category");
+        recyclerView.setAdapter(mySearchAdapter);
+
+        for(int i = 0; i < chipGroup.getChildCount(); i++){
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        chipText = chip.getText().toString();
+                        mySearchAdapter.setTextSearch(chipText);
+                    }
+                }
+            });
+        }
+
+
     }
 
     private SearchPresenter setUpPresenter(){
@@ -87,18 +112,66 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
         Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
         return new SearchPresenter(repo,this,this,this);
     }
-
     @Override
     public void onCategoryListSuccess(List<CategorySearchPojo> categoriesList) {
+        mySearchAdapter.setCategoriesList(categoriesList);
+        textInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchPresenter.categoryTextWatching(categoriesList,s,mySearchAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
+
     @Override
     public void onCountryListSuccess(List<CountrySearchPojo> countriesList) {
+        mySearchAdapter.setCountriesList(countriesList);
+        textInputEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchPresenter.countryTextWatching(countriesList,s,mySearchAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
     @Override
     public void onIngredientsListSuccess(List<IngredientSearchPojo> ingredientsList) {
+            mySearchAdapter.setIngredientsList(ingredientsList);
+            textInputEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    searchPresenter.ingredientTextWatching(ingredientsList,s,mySearchAdapter);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
     }
 
     @Override
@@ -115,4 +188,5 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     public void onIngredientsListFailure(String err) {
         Snackbar.make(view,err,Snackbar.LENGTH_SHORT).show();
     }
+
 }

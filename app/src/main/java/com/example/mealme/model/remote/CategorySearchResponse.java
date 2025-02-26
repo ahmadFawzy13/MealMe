@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class CategorySearchResponse {
-    @SerializedName("meals")
+    @SerializedName("categories")
     List<CategorySearchPojo> listOfCategories;
 
     public List<CategorySearchPojo> getListOfCategories() {

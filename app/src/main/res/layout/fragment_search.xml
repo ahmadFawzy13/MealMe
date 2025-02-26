@@ -42,6 +42,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Category"
 
             app:chipStrokeColor="@color/main_theme" />
@@ -65,8 +66,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSearch"
-        android:layout_width="425dp"
-        android:layout_height="752dp"
+        android:layout_width="wrap_content"
+        android:layout_height="636dp"
+        android:layout_marginBottom="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

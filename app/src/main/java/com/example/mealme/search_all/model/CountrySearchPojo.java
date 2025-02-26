@@ -11,4 +11,11 @@ public class CountrySearchPojo {
     public void setStrArea(String strArea) {
         this.strArea = strArea;
     }
+
+    @Override
+    public String toString() {
+        return "CountrySearchPojo{" +
+                "strArea='" + strArea + '\'' +
+                '}';
+    }
 }

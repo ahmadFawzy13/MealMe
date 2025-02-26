@@ -11,7 +11,7 @@ public interface MealsApi {
     Single<RandomMealResponse> getRandomMeal();
     @GET("lookup.php")
     Single<MealDetailsResponse>getMealDetails(@Query("i")String id);
-    @GET("list.php?c=list")
+    @GET("categories.php")
     Single<CategorySearchResponse>getSearchCategories();
     @GET("list.php?a=list")
     Single<CountrySearchResponse>getSearchCountries();

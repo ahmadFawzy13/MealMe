@@ -10,6 +10,7 @@ import com.example.mealme.model.remote.IngredientSearchResponse;
 import com.example.mealme.model.remote.MealDetailsResponse;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.remote.RandomMealResponse;
+import com.example.mealme.model.remote.SearchByResponse;
 
 import java.util.List;
 
@@ -62,5 +63,8 @@ public class Repository {
     }
     public Single<IngredientSearchResponse>getSearchIngredients(){
         return remoteSource.getSearchIngredients();
+    }
+    public Single<SearchByResponse>getMealsBy(String strCategory,String strArea,String strIngredient ){
+        return remoteSource.getMealBy(strCategory,strArea,strIngredient);
     }
 }

@@ -102,8 +102,8 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         randomMealDesc.setText(listOfMeals.get(0).getStrInstructions());
         randomMealPhoto.setOnClickListener(v->{
             com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2
-                   actionHomeFragmentToMealFragment2 = HomeFragmentDirections.actionHomeFragmentToMealFragment2(listOfMeals.get(0).getIdMeal());
-            Navigation.findNavController(view).navigate(actionHomeFragmentToMealFragment2);
+                   action = HomeFragmentDirections.actionHomeFragmentToMealFragment2(listOfMeals.get(0).getIdMeal());
+            Navigation.findNavController(view).navigate(action);
         });
     }
 
@@ -114,9 +114,9 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
 
     @Override
     public void idTransfer(String id) {
-        com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2 actionHomeFragmentToMealFragment2
+        com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2 action
                 = HomeFragmentDirections.actionHomeFragmentToMealFragment2(id);
-        Navigation.findNavController(view).navigate(actionHomeFragmentToMealFragment2);
+        Navigation.findNavController(view).navigate(action);
 
     }
 }

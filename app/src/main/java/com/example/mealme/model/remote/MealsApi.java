@@ -17,4 +17,6 @@ public interface MealsApi {
     Single<CountrySearchResponse>getSearchCountries();
     @GET("list.php?i=list")
     Single<IngredientSearchResponse>getSearchIngredients();
+    @GET("filter.php")
+    Single<SearchByResponse>getMealsBy(@Query("c") String strCategory,@Query("a") String strArea,@Query("i") String strIngredient);
 }

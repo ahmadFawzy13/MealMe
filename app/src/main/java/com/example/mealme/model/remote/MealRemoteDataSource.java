@@ -1,14 +1,7 @@
 package com.example.mealme.model.remote;
 
-import android.util.Log;
-
-import com.example.mealme.meal_details.model.Meal;
-
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -49,5 +42,9 @@ public class MealRemoteDataSource {
 
     public Single<IngredientSearchResponse>getSearchIngredients(){
         return mealsApi.getSearchIngredients();
+    }
+
+    public Single<SearchByResponse>getMealBy(String strCategory,String strArea,String strIngredient){
+        return mealsApi.getMealsBy(strCategory,strArea,strIngredient);
     }
 }

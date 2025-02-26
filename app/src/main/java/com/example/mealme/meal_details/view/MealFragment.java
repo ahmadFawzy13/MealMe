@@ -115,7 +115,9 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         getLifecycle().addObserver(youTubePlayerView);
 
 
+
         receivedId = MealFragmentArgs.fromBundle(getArguments()).getIdMeal();
+
         mealPresenter = setUpPresenter();
         mealPresenter.getMealDetails(receivedId);
 
@@ -154,7 +156,6 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
             }
         });
     }
-
 
     @Override
     public void showMealDetailsErrorMsg(String err) {

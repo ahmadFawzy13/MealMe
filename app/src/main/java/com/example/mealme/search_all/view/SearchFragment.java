@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,11 +33,12 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends Fragment implements CountrySearchViewer, CategorySearchViewer, IngredientSearchViewer{
+public class SearchFragment extends Fragment implements CountrySearchViewer, CategorySearchViewer, IngredientSearchViewer,onSearchItemClickedListener{
 
     private TextInputEditText textInputEditText;
     private ChipGroup chipGroup;
@@ -50,6 +52,7 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     String chipText;
     MySearchAdapter mySearchAdapter;
     List<CategorySearchPojo>searchCategories;
+    TextInputLayout textField;
 
     public SearchFragment() {
     }
@@ -75,6 +78,7 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
         countryChip = view.findViewById(R.id.countryChip);
         ingChip = view.findViewById(R.id.ingChip);
         searchConstraint = view.findViewById(R.id.searchConstraint);
+        textField = view.findViewById(R.id.textField);
         this.view = view;
 
         recyclerView = view.findViewById(R.id.recyclerSearch);
@@ -87,7 +91,7 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
         searchPresenter.getSearchCountries();
         searchPresenter.getSearchIngredients();
 
-        mySearchAdapter = new MySearchAdapter(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),requireActivity(),"Category");
+        mySearchAdapter = new MySearchAdapter(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),requireActivity(),"Category",this);
         recyclerView.setAdapter(mySearchAdapter);
 
         for(int i = 0; i < chipGroup.getChildCount(); i++){
@@ -97,12 +101,12 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){
                         chipText = chip.getText().toString();
+                        textField.setHint("Search " + chipText);
                         mySearchAdapter.setTextSearch(chipText);
                     }
                 }
             });
         }
-
 
     }
 
@@ -132,7 +136,6 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
             }
         });
     }
-
     @Override
     public void onCountryListSuccess(List<CountrySearchPojo> countriesList) {
         mySearchAdapter.setCountriesList(countriesList);
@@ -173,20 +176,21 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
                 }
             });
     }
-
     @Override
     public void onCategoryListFailure(String err) {
         Snackbar.make(view,err,Snackbar.LENGTH_SHORT).show();
     }
-
     @Override
     public void onCountrylistFailure(String err) {
         Snackbar.make(view,err,Snackbar.LENGTH_SHORT).show();
     }
-
     @Override
     public void onIngredientsListFailure(String err) {
         Snackbar.make(view,err,Snackbar.LENGTH_SHORT).show();
     }
-
+    @Override
+    public void onSearchItemClick(String chipText, String searchName) {
+        SearchFragmentDirections.ActionSearchFragmentToSearchByFragment action = SearchFragmentDirections.actionSearchFragmentToSearchByFragment(chipText,searchName);
+        Navigation.findNavController(view).navigate(action);
+    }
 }

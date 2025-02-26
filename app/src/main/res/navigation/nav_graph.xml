@@ -110,5 +110,24 @@
         android:id="@+id/searchFragment"
         android:name="com.example.mealme.search_all.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchByFragment"
+            app:destination="@id/searchByFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByFragment"
+        android:name="com.example.mealme.search_by.view.SearchByFragment"
+        android:label="fragment_search_by"
+        tools:layout="@layout/fragment_search_by" >
+        <argument
+            android:name="chipText"
+            app:argType="string" />
+        <argument
+            android:name="searchName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchByFragment_to_mealFragment"
+            app:destination="@id/mealFragment" />
+    </fragment>
 </navigation>

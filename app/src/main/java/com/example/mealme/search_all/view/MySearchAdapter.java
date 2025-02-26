@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,13 +27,15 @@ public class MySearchAdapter extends RecyclerView.Adapter<MySearchAdapter.ViewHo
     private List <IngredientSearchPojo>ingredientsList;
     private final Context context;
     String searchText;
+    onSearchItemClickedListener onSearchItemClickedListener;
 
-    public MySearchAdapter(List<CategorySearchPojo> categoriesList, List<CountrySearchPojo> countriesList, List<IngredientSearchPojo> ingredientsList, Context context, String searchText) {
+    public MySearchAdapter(List<CategorySearchPojo> categoriesList, List<CountrySearchPojo> countriesList, List<IngredientSearchPojo> ingredientsList, Context context, String searchText,onSearchItemClickedListener onSearchItemClickedListener) {
         this.categoriesList = categoriesList;
         this.countriesList = countriesList;
         this.ingredientsList = ingredientsList;
         this.context = context;
         this.searchText = searchText;
+        this.onSearchItemClickedListener = onSearchItemClickedListener;
     }
 
     public void setCategoriesList(List<CategorySearchPojo>categoriesList){
@@ -76,12 +79,26 @@ public class MySearchAdapter extends RecyclerView.Adapter<MySearchAdapter.ViewHo
                 holder.searchName.setText(categoriesList.get(position).getStrCategory());
                 break;
             case "Country":
-                    String countryCode = getCountryNameCode(countriesList.get(position).getStrArea());
-                    String flag = "https://www.themealdb.com/images/icons/flags/big/64/" + countryCode + ".png";
-                    holder.searchName.setText(countriesList.get(position).getStrArea());
-                    Glide.with(context).load(flag).into(holder.searchImg);
+                String countryCode = getCountryNameCode(countriesList.get(position).getStrArea());
+                String flag = "https://www.themealdb.com/images/icons/flags/big/64/" + countryCode + ".png";
+                holder.searchName.setText(countriesList.get(position).getStrArea());
+                Glide.with(context).load(flag).into(holder.searchImg);
                 break;
         }
+
+        holder.cardViewSearchPage.setOnClickListener(v->{
+            switch(searchText){
+                case "Ingredient":
+                    onSearchItemClickedListener.onSearchItemClick(searchText,ingredientsList.get(position).getStrIngredient());
+                    break;
+                case "Category":
+                    onSearchItemClickedListener.onSearchItemClick(searchText,categoriesList.get(position).getStrCategory());
+                    break;
+                case "Country":
+                    onSearchItemClickedListener.onSearchItemClick(searchText,countriesList.get(position).getStrArea());
+                    break;
+            }
+        });
     }
 
     @Override
@@ -135,10 +152,12 @@ public class MySearchAdapter extends RecyclerView.Adapter<MySearchAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView searchImg;
         TextView searchName;
+        CardView cardViewSearchPage;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             searchImg = itemView.findViewById(R.id.searchImg);
             searchName = itemView.findViewById(R.id.searchName);
+            cardViewSearchPage = itemView.findViewById(R.id.cardViewSearchPage);
         }
     }
 }

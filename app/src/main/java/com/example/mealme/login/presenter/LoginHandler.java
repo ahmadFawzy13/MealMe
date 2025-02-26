@@ -6,4 +6,7 @@ public interface LoginHandler {
     void onEditEmailError(String err);
     void onEditEmailFormatError(String err);
     void onEditPasswordError(String err);
+    void onSignInWithGoogleSuccess(String msg);
+    void onSignInWithGoogleFailure(String err);
+
 }

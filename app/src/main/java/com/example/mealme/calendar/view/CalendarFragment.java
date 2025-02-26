@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -18,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.example.mealme.CalendarViewer;
+import com.example.mealme.OnCalendarMealDeleted;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.CalendarMealObjectTransfer;
 import com.example.mealme.DeleteCalendarMeal;
@@ -29,13 +31,14 @@ import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
-public class CalendarFragment extends Fragment implements DeleteCalendarMeal, CalendarMealObjectTransfer, CalendarViewer {
+public class CalendarFragment extends Fragment implements DeleteCalendarMeal, CalendarMealObjectTransfer, CalendarViewer, OnCalendarMealDeleted {
 
     private Calendar calendar;
     private int year;
@@ -48,6 +51,7 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
     CalendarPresenter calendarPresenter;
     MyCalendarAdapter myCalendarAdapter;
     String date;
+    ConstraintLayout constraintLayout;
 
     public CalendarFragment() {
     }
@@ -74,6 +78,7 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
         day = calendar.get(Calendar.DAY_OF_MONTH);
         this.view = view;
 
+        constraintLayout = view.findViewById(R.id.constraintCalendar);
         datePicker = view.findViewById(R.id.datePickerCalendar);
         recyclerView = view.findViewById(R.id.recycler_calendar_cards);
         recyclerView.setHasFixedSize(true);
@@ -81,13 +86,20 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         date = year+"/"+month+"/"+day;
         calendarPresenter = setUpPresenter();
         calendarPresenter.getCalendarMealByDate(date);
 
         myCalendarAdapter = new MyCalendarAdapter(requireActivity(),new ArrayList<>(),this,this);
         recyclerView.setAdapter(myCalendarAdapter);
+
+        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                date = String.valueOf(year)+"/"+String.valueOf(monthOfYear)+"/"+String.valueOf(dayOfMonth);
+                calendarPresenter.getCalendarMealByDate(date);
+            };
+        });
 
         datePicker.setMinDate(System.currentTimeMillis());
         calendar.add(Calendar.DAY_OF_MONTH,6);
@@ -99,7 +111,7 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
         MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
         MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
         Repository repository = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
-        return new CalendarPresenter(repository,this);
+        return new CalendarPresenter(repository,this,this);
     }
 
     @Override
@@ -124,17 +136,19 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
     @Override
     public void onCalendarMealSuccess(List<CalendarMeal> calendarMeal) {
             myCalendarAdapter.setList(calendarMeal);
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                date = String.valueOf(year)+"/"+String.valueOf(monthOfYear)+"/"+String.valueOf(dayOfMonth);
-                calendarPresenter.getCalendarMealByDate(date);
-                    myCalendarAdapter.setList(calendarMeal);
-            };
-        });
     }
     @Override
     public void onCalendarMealFailed(String error) {
-        Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show();
+        Snackbar.make(constraintLayout,error,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCalendarMealDeletionSuccess(String msg) {
+        Snackbar.make(constraintLayout,msg,Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCalendarMealDeletionFailure(String err) {
+        Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 }

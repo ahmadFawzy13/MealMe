@@ -67,4 +67,10 @@ public class Repository {
     public Single<SearchByResponse>getMealsBy(String strCategory,String strArea,String strIngredient ){
         return remoteSource.getMealBy(strCategory,strArea,strIngredient);
     }
+    public Completable deleteMealsTable(){
+        return localSource.deleteMealsTable();
+    }
+    public Completable deleteCalendarTable(){
+        return localSource.deleteCalendarMealsTable();
+    }
 }

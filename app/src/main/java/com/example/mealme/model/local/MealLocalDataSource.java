@@ -47,4 +47,10 @@ public class MealLocalDataSource {
     public Completable deleteCalenderMeal(CalendarMeal calendarMeal){
           return calendarMealDao.deleteMeal(calendarMeal);
     }
+    public Completable deleteMealsTable(){
+        return mealDao.deleteMealsTable();
+    }
+    public Completable deleteCalendarMealsTable(){
+        return calendarMealDao.deleteAllCalendarMeals();
+    }
 }

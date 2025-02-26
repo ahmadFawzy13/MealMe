@@ -19,6 +19,7 @@ import com.example.mealme.login.presenter.LoginHandler;
 import com.example.mealme.login.presenter.LoginPresenter;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.R;
+import com.example.mealme.utils.GoogleLogin;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -34,6 +35,8 @@ public class LoginFragment extends Fragment implements LoginHandler {
     ConstraintLayout constraintLogin;
     FirebaseAuth firebaseAuth;
     private Button googleBtn;
+
+    GoogleLogin googleLogin;
 
     public LoginFragment() {
 
@@ -64,7 +67,7 @@ public class LoginFragment extends Fragment implements LoginHandler {
         googleBtn = view.findViewById(R.id.google_btn);
         this.view = view;
 
-        loginPresenter = new LoginPresenter(requireActivity(),this);
+        loginPresenter = new LoginPresenter(this,requireContext(),new GoogleLogin(this,this));
 
         loginBtn.setOnClickListener(v->{
             loginPresenter.loginAction(emailLogin.getText().toString(),passwordLogin.getText().toString());
@@ -77,31 +80,40 @@ public class LoginFragment extends Fragment implements LoginHandler {
         guestBtn.setOnClickListener(v->{
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
         });
+
+        googleBtn.setOnClickListener(v->{
+            loginPresenter.loginWithGoogle();
+        });
     }
 
     @Override
     public void onLoginFailed(String msg) {
         Snackbar.make(constraintLogin,msg,Snackbar.LENGTH_SHORT).show();
     }
-
     @Override
     public void onLoginSuccess(String msg) {
         Snackbar.make(constraintLogin,msg,Snackbar.LENGTH_SHORT).show();
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
     }
-
     @Override
     public void onEditEmailError(String err) {
         emailLogin.setError(err);
     }
-
     @Override
     public void onEditEmailFormatError(String err) {
         emailLogin.setError(err);
     }
-
     @Override
     public void onEditPasswordError(String err) {
         passwordLogin.setError(err);
+    }
+    @Override
+    public void onSignInWithGoogleSuccess(String msg) {
+        Snackbar.make(constraintLogin,msg,Snackbar.LENGTH_SHORT).show();
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
+    }
+    @Override
+    public void onSignInWithGoogleFailure(String err) {
+        Snackbar.make(constraintLogin,err,Snackbar.LENGTH_SHORT).show();
     }
 }

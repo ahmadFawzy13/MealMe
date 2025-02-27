@@ -22,9 +22,7 @@ import com.example.mealme.splash.presenter.SplashPresenter;
 public class SplashFragment extends Fragment implements SplashAnimHandler {
 
     private LottieAnimationView splashScreen;
-
     View view;
-
 
     public SplashFragment() {
     }
@@ -52,7 +50,12 @@ public class SplashFragment extends Fragment implements SplashAnimHandler {
     }
 
     @Override
-    public void animHandler() {
+    public void transitionNotSignedIn() {
         Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_loginFragment);
+    }
+
+    @Override
+    public void transitionSignedIn() {
+        Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_homeFragment);
     }
 }

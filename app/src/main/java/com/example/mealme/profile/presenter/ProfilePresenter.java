@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ProfilePresenter {
 
     FirebaseAuth firebaseAuth;
+
     Repository repo;
 
     public ProfilePresenter(Repository repo) {
@@ -23,11 +24,7 @@ public class ProfilePresenter {
         repo.deleteMealsTable()
             .subscribeOn(Schedulers.io())
             .subscribe();
-
             firebaseAuth.signOut();
+
     }
-
-
-
-
 }

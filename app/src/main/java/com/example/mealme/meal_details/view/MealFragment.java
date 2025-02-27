@@ -32,6 +32,7 @@ import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
@@ -52,7 +53,6 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     private int month;
     private int day;
     private String receivedId;
-
     private ImageView mealDetailsImg;
     private TextView detailsMealName;
 
@@ -66,6 +66,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     NestedScrollView nestedScrollView;
 
     CalendarMeal calendarMeal;
+    FirebaseAuth firebaseAuth;
 
     private Meal meal;
 
@@ -102,6 +103,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         detailsCountryName = view.findViewById(R.id.detailsCountryName);
         mealInstructions = view.findViewById(R.id.mealInstructions);
         nestedScrollView = view.findViewById(R.id.meal_nested_scroll);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = view.findViewById(R.id.recycler_meal_page);
         recyclerView.setHasFixedSize(true);
@@ -123,12 +125,20 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
 
 
         saveFavBtn.setOnClickListener(v->{
-            mealPresenter.insertMeal(meal);
-
+            if(firebaseAuth.getCurrentUser() == null){
+                ((MainActivity) requireActivity()).showSignUpDialog();
+            }else{
+                mealPresenter.insertMeal(meal);
+            }
         });
 
         calendarBtn.setOnClickListener(v->{
-            datePicker();
+
+            if(firebaseAuth.getCurrentUser() == null){
+                ((MainActivity) requireActivity()).showSignUpDialog();
+            }else{
+                datePicker();
+            }
         });
     }
 

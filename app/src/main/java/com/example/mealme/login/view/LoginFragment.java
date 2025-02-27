@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,6 @@ public class LoginFragment extends Fragment implements LoginHandler {
     ConstraintLayout constraintLogin;
     FirebaseAuth firebaseAuth;
     private Button googleBtn;
-
     GoogleLogin googleLogin;
 
     public LoginFragment() {

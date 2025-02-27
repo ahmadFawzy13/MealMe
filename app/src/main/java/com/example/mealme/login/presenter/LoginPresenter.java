@@ -5,6 +5,7 @@ import static androidx.activity.result.ActivityResultCallerKt.registerForActivit
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -48,8 +49,10 @@ public class LoginPresenter {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            Log.i("TAG", "onComplete: " + firebaseAuth.getCurrentUser());
                            loginHandler.onLoginSuccess("Login Successful");
                         }else{
+                            Log.i("TAG", "onComplete: " + firebaseAuth.getCurrentUser());
                            loginHandler.onLoginFailed("Login Failed");
                         }
                     }

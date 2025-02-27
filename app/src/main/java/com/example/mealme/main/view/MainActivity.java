@@ -2,7 +2,10 @@ package com.example.mealme.main.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,21 +20,26 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mealme.NetworkListener;
 import com.example.mealme.R;
 import com.example.mealme.home.view.HomeFragment;
+import com.example.mealme.main.presenter.MainActivityPresenter;
 import com.example.mealme.profile.view.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NetworkListener {
 
     public static final String TAG = "MainActivity";
-
     private BottomNavigationView bottomNav;
     private FirebaseAuth firebaseAuth;
     private NavController navController;
+    TextView noConnectionTxt;
+    ImageView noConnectionImg;
+
+    MainActivityPresenter mainActivityPresenter;
     private final String SHARED_PREF = "MealMePref";
 
     @Override
@@ -40,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
+        noConnectionImg = findViewById(R.id.noConnectionImg);
+        noConnectionTxt = findViewById(R.id.noConnectionTxt);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        mainActivityPresenter = new MainActivityPresenter(this,this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentContainerView);
@@ -77,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
+        mainActivityPresenter.monitorConnection();
     }
     @Override
     protected void onStart() {
@@ -99,5 +113,21 @@ public class MainActivity extends AppCompatActivity {
 
                 })
                 .show();
+    }
+
+    @Override
+    public void onNetworkAvailable() {
+       runOnUiThread(()->{
+            noConnectionImg.setVisibility(View.GONE);
+            noConnectionTxt.setVisibility(View.GONE);
+       });
+    }
+
+    @Override
+    public void onNetworkLost() {
+        runOnUiThread(()->{
+            noConnectionImg.setVisibility(View.VISIBLE);
+            noConnectionTxt.setVisibility(View.VISIBLE);
+        });
     }
 }

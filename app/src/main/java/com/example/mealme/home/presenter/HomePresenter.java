@@ -45,7 +45,7 @@ public class HomePresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        homeMealViewer.showHomeMealErrorMsg(e.getLocalizedMessage());
+                        homeMealViewer.showHomeMealErrorMsg("No Internet Connection");
                     }
                 });
     }
@@ -68,7 +68,7 @@ public class HomePresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        randomMealViewer.showRandomMealErrorMsg(e.getLocalizedMessage());
+                        randomMealViewer.showRandomMealErrorMsg("No Internet Connection");
                     }
                 });
     }

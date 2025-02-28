@@ -33,7 +33,7 @@
                 android:fontFamily="@font/poppinssemibold"
                 android:gravity="center"
                 android:textColor="@color/main_theme"
-                android:text="Medjool Dates" />
+                tools:text="Medjool Dates" />
 
             <TextView
                 android:id="@+id/favIngredientPortionRecycler"
@@ -42,7 +42,7 @@
                 android:fontFamily="@font/poppinssemibold"
                 android:gravity="center"
                 android:textColor="@color/main_theme"
-                android:text="175ml Boiling" />
+                tools:text="175ml Boiling" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

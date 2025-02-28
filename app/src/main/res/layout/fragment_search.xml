@@ -13,7 +13,7 @@
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="Search Category"
+        android:hint="@string/search_category"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Category"
+            android:text="@string/category"
 
             app:chipStrokeColor="@color/main_theme" />
 
@@ -52,7 +52,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredient"
+            android:text="@string/ingredient"
             app:chipStrokeColor="@color/main_theme" />
 
         <com.google.android.material.chip.Chip
@@ -60,7 +60,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country"
+            android:text="@string/country"
             app:chipStrokeColor="@color/main_theme" />
     </com.google.android.material.chip.ChipGroup>
 

@@ -12,7 +12,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="44dp"
-
         android:layout_marginTop="68dp"
         android:fontFamily="@font/poppinssemibold"
         android:text="@string/homePhrase"
@@ -51,7 +50,7 @@
             android:layout_marginTop="230dp"
             android:layout_marginEnd="0dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="TextView"
+            tools:text="TextView"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -64,7 +63,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppinsregular"
             android:maxLines="2"
-            android:text="TextView"
+            tools:text="TextView"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </androidx.cardview.widget.CardView>

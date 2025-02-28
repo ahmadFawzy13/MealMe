@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                tools:text="Vegeterian Lunch" />
+                tools:text="Vegan Lunch" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

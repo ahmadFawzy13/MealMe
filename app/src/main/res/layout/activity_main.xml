@@ -23,7 +23,7 @@
          android:layout_height="wrap_content"
          android:background="#0A0A42"
          android:layout_gravity="bottom"
-         app:menu="@menu/navgation_menu"
+         app:menu="@menu/navigation_menu"
          android:visibility="visible" >
 
         <TextView

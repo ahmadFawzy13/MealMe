@@ -26,4 +26,12 @@
     <string name="client_id">146068718664-fi1qp6qon7v3vourbip1rtf0cji22lo2.apps.googleusercontent.com</string>
     <string name="no_connection">No Connection</string>
     <string name="mealme_is_offline">MealMe is offline</string>
+    <string name="your_picks">Your Picks!</string>
+    <string name="search_category">Search Category</string>
+    <string name="category">Category</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="country">Country</string>
+    <string name="search_meals">Search Meals</string>
+    <string name="username">Username</string>
+    <string name="mealme">MealMe</string>
 </resources>

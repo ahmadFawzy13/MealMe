@@ -1,6 +1,6 @@
 package com.example.mealme.favourite.presenter;
 
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 
 import java.util.List;
 

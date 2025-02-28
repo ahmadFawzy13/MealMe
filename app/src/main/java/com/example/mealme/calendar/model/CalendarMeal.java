@@ -3,7 +3,7 @@ package com.example.mealme.calendar.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 
 import java.io.Serializable;
 
@@ -96,6 +96,7 @@ public class CalendarMeal extends Meal implements Serializable {
                 strMeasure6, strMeasure7, strMeasure8, strMeasure9, strMeasure10, strMeasure11,
                 strMeasure12, strMeasure13, strMeasure14, strMeasure15, strMeasure16, strMeasure17,
                 strMeasure18, strMeasure19, strMeasure20);
+
             this.date = date;
      }
 

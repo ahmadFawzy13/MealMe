@@ -25,7 +25,7 @@ import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.R;
 import com.example.mealme.Reflector;
 import com.example.mealme.main.view.MainActivity;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
 import com.example.mealme.meal_details.presenter.MealPresenter;
 import com.example.mealme.model.local.MealLocalDataSource;

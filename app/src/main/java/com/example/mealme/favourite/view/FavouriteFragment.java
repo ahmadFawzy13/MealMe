@@ -18,7 +18,7 @@ import android.widget.Button;
 import com.example.mealme.R;
 import com.example.mealme.favourite.presenter.FavouritePresenter;
 import com.example.mealme.main.view.MainActivity;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
 import com.example.mealme.model.repo.Repository;

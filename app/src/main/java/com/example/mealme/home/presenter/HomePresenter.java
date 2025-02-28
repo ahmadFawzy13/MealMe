@@ -5,8 +5,7 @@ import com.example.mealme.home.model.HomeMealViewer;
 import com.example.mealme.home.model.HomeMealsPojo;
 import com.example.mealme.home.model.RandomMealPojo;
 import com.example.mealme.home.model.RandomMealViewer;
-import com.example.mealme.meal_details.model.Meal;
-import com.example.mealme.model.remote.HomeMealResponse;
+import com.example.mealme.model.remote.Meal;
 import com.example.mealme.model.repo.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +18,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.internal.util.AppendOnlyLinkedArrayList;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePresenter {

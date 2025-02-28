@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.R;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;

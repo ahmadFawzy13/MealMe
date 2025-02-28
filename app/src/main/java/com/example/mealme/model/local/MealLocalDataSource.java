@@ -1,16 +1,14 @@
 package com.example.mealme.model.local;
 
 import android.content.Context;
-import androidx.lifecycle.LiveData;
 
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Single;
 
 public class MealLocalDataSource {
 

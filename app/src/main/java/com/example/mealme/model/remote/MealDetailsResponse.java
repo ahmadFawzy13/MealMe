@@ -1,7 +1,5 @@
 package com.example.mealme.model.remote;
 
-import com.example.mealme.home.model.RandomMealPojo;
-import com.example.mealme.meal_details.model.Meal;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

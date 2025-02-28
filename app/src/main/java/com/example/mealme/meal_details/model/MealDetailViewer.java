@@ -1,6 +1,6 @@
 package com.example.mealme.meal_details.model;
 
-import com.example.mealme.home.model.RandomMealPojo;
+import com.example.mealme.model.remote.Meal;
 
 import java.util.List;
 

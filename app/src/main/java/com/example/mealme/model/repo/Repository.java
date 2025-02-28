@@ -1,7 +1,7 @@
 package com.example.mealme.model.repo;
 
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.CategorySearchResponse;
 import com.example.mealme.model.remote.CountrySearchResponse;

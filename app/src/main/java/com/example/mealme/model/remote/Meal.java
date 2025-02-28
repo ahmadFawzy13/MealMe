@@ -1,4 +1,4 @@
-package com.example.mealme.meal_details.model;
+package com.example.mealme.model.remote;
 
 import androidx.room.Entity;
 

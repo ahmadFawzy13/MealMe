@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 
 @Database(entities = {Meal.class, CalendarMeal.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {

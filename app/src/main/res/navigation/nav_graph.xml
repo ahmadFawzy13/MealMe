@@ -128,7 +128,7 @@
         android:label="FavouriteMealDetailsFragment" >
         <argument
             android:name="meal"
-            app:argType="com.example.mealme.meal_details.model.Meal" />
+            app:argType="com.example.mealme.model.remote.Meal" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"

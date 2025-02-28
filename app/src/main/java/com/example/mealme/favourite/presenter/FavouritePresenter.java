@@ -3,7 +3,7 @@ package com.example.mealme.favourite.presenter;
 import android.annotation.SuppressLint;
 
 import com.example.mealme.favourite.view.FavouriteMealViewer;
-import com.example.mealme.meal_details.model.Meal;
+import com.example.mealme.model.remote.Meal;
 import com.example.mealme.model.repo.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

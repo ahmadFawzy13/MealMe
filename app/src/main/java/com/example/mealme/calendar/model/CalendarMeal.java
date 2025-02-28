@@ -11,6 +11,11 @@ import java.io.Serializable;
 public class CalendarMeal extends Meal implements Serializable {
     @NonNull
     String date;
+
+    public CalendarMeal(){
+        super();
+    }
+
     public CalendarMeal(Meal meal, @NonNull String date) {
         super();
         this.setIdMeal(meal.getIdMeal());
@@ -81,6 +86,7 @@ public class CalendarMeal extends Meal implements Serializable {
                         String strMeasure14, String strMeasure15, String strMeasure16,
                         String strMeasure17, String strMeasure18, String strMeasure19,
                         String strMeasure20, @NonNull String date) {
+
         super(idMeal, strMeal, strMealThumb, strInstructions, strCategory, strArea, strTags,
                 strYoutube, strIngredient1, strIngredient2, strIngredient3, strIngredient4,
                 strIngredient5, strIngredient6, strIngredient7, strIngredient8, strIngredient9,

@@ -2,10 +2,7 @@ package com.example.mealme.splash.presenter;
 
 import android.os.Handler;
 
-import androidx.navigation.Navigation;
-
-import com.example.mealme.R;
-import com.example.mealme.SplashAnimHandler;
+import com.example.mealme.splash.view.SplashAnimHandler;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashPresenter {

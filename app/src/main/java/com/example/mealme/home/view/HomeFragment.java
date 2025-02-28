@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
-import com.example.mealme.IdDelivery;
+import com.example.mealme.common.IdDelivery;
 import com.example.mealme.home.model.HomeMealViewer;
 import com.example.mealme.home.model.RandomMealViewer;
 import com.example.mealme.home.presenter.HomePresenter;
@@ -28,6 +28,7 @@ import com.example.mealme.home.model.RandomMealPojo;
 import com.example.mealme.home.model.HomeMealsPojo;
 import com.example.mealme.model.repo.Repository;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
     MyHomeMealsAdapter myHomeMealsAdapter;
     View view;
     ConstraintLayout constraintLayout;
+    FirebaseAuth firebaseAuth;
 
     public HomeFragment() {
     }
@@ -70,11 +72,17 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         randomMealPhoto = view.findViewById(R.id.randomMealPhoto);
         constraintLayout = view.findViewById(R.id.constraintHome_layout);
         this.view = view;
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        homePresenter = setupPresenter();
-        homePresenter.getHomeMeals();
-        homePresenter.getRandomMeal();
 
+            homePresenter = setupPresenter();
+            homePresenter.getHomeMeals();
+            homePresenter.getRandomMeal();
+
+        if(firebaseAuth.getCurrentUser() != null) {
+            homePresenter.syncFavouritesWithFirebase();
+            homePresenter.syncLocalCalendarWithFirebase();
+        }
     }
 
     private HomePresenter setupPresenter(){

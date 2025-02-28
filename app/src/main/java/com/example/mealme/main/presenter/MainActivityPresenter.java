@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import androidx.annotation.NonNull;
 
-import com.example.mealme.NetworkListener;
+import com.example.mealme.main.view.NetworkListener;
 
 public class MainActivityPresenter {
     ConnectivityManager connectivityManager;

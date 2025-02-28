@@ -12,8 +12,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.DeleteMeal;
-import com.example.mealme.MealObjectTransfer;
 import com.example.mealme.R;
 import com.example.mealme.meal_details.model.Meal;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -25,14 +23,14 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
         private Context context;
         private List<Meal> favMeals;
         DeleteMeal deleteMeal;
-        MealObjectTransfer mealObjectTransfer;
+        FavMealObjectTransfer favMealObjectTransfer;
         Meal meal;
 
-    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, MealObjectTransfer mealObjectTransfer) {
+    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, FavMealObjectTransfer favMealObjectTransfer) {
         this.context = context;
         this.favMeals = favMeals;
         this.deleteMeal = deleteMeal;
-        this.mealObjectTransfer = mealObjectTransfer;
+        this.favMealObjectTransfer = favMealObjectTransfer;
     }
 
     public void setList(List<Meal> favMeals) {
@@ -63,7 +61,7 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
 
             holder.favCard.setOnClickListener(v->{
                 meal = favMeals.get(position);
-                mealObjectTransfer.mealObjectTransfer(meal);
+                favMealObjectTransfer.favMealObjectTransfer(meal);
             });
 
         }

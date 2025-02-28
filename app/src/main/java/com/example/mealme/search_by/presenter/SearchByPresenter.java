@@ -1,6 +1,6 @@
 package com.example.mealme.search_by.presenter;
 
-import com.example.mealme.SearchMealsViewer;
+import com.example.mealme.search_by.view.SearchMealsViewer;
 import com.example.mealme.search_by.model.SearchByPojo;
 import com.example.mealme.model.repo.Repository;
 import com.example.mealme.search_by.view.SearchByAdapter;

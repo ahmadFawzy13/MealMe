@@ -12,15 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mealme.IdDelivery;
+import com.example.mealme.common.IdDelivery;
 import com.example.mealme.R;
-import com.example.mealme.SearchMealsViewer;
-import com.example.mealme.home.view.HomeFragmentDirections;
 import com.example.mealme.search_by.model.SearchByPojo;
 import com.example.mealme.search_by.presenter.SearchByPresenter;
 import com.example.mealme.model.local.MealLocalDataSource;

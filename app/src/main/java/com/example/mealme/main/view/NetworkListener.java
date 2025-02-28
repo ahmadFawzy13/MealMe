@@ -1,4 +1,4 @@
-package com.example.mealme;
+package com.example.mealme.main.view;
 
 public interface NetworkListener {
     void onNetworkAvailable();

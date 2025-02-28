@@ -25,4 +25,5 @@
     <string name="week_s_diet">Week\'s Diet:</string>
     <string name="client_id">146068718664-fi1qp6qon7v3vourbip1rtf0cji22lo2.apps.googleusercontent.com</string>
     <string name="no_connection">No Connection</string>
+    <string name="mealme_is_offline">MealMe is offline</string>
 </resources>

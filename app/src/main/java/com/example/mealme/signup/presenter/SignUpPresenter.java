@@ -5,10 +5,8 @@ import android.content.Context;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 
-import com.example.mealme.R;
-import com.example.mealme.SignUpHandler;
+import com.example.mealme.signup.view.SignUpHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

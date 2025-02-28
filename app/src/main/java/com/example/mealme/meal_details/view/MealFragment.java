@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.R;
 import com.example.mealme.Reflector;
@@ -55,19 +55,14 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     private String receivedId;
     private ImageView mealDetailsImg;
     private TextView detailsMealName;
-
     private TextView mealType;
     private TextView detailsCountryName;
-
     private TextView mealInstructions;
-
     private YouTubePlayerView youTubePlayerView;
-
-    NestedScrollView nestedScrollView;
-
-    CalendarMeal calendarMeal;
-    FirebaseAuth firebaseAuth;
-
+    private NestedScrollView nestedScrollView;
+    private CalendarMeal calendarMeal;
+    private FirebaseAuth firebaseAuth;
+    private String userId;
     private Meal meal;
 
     public MealFragment() {
@@ -103,6 +98,7 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         detailsCountryName = view.findViewById(R.id.detailsCountryName);
         mealInstructions = view.findViewById(R.id.mealInstructions);
         nestedScrollView = view.findViewById(R.id.meal_nested_scroll);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         recyclerView = view.findViewById(R.id.recycler_meal_page);
@@ -116,28 +112,25 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         youTubePlayerView = view.findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
 
-
-
         receivedId = MealFragmentArgs.fromBundle(getArguments()).getIdMeal();
 
         mealPresenter = setUpPresenter();
         mealPresenter.getMealDetails(receivedId);
 
-
         saveFavBtn.setOnClickListener(v->{
             if(firebaseAuth.getCurrentUser() == null){
                 ((MainActivity) requireActivity()).showSignUpDialog();
             }else{
-                mealPresenter.insertMeal(meal);
+                mealPresenter.insertMealLocal(meal);
+                mealPresenter.insertItemToFireStore(null,meal);
             }
         });
-
         calendarBtn.setOnClickListener(v->{
-
             if(firebaseAuth.getCurrentUser() == null){
                 ((MainActivity) requireActivity()).showSignUpDialog();
             }else{
-                datePicker();
+                Log.i("TAG", "onViewCreated: " + firebaseAuth.getCurrentUser().getUid());
+                insertCalendarMealDatePicker();
             }
         });
     }
@@ -146,9 +139,8 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
         MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
         Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
-        return new MealPresenter(repo,this,this,this );
+        return new MealPresenter(repo,this,this,this);
     }
-
     @Override
     public void showMealDetails(List<Meal> listOfMeals) {
         meal = listOfMeals.get(0);
@@ -176,15 +168,14 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         return url.substring(url.indexOf("v=")+ 2);
     }
 
-    private void datePicker(){
+    private void insertCalendarMealDatePicker(){
         DatePickerDialog dialog = new DatePickerDialog(requireActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                 String date = String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(dayOfMonth);
                 calendarMeal = new CalendarMeal(meal,date);
-                mealPresenter.insertCalendarMeal(calendarMeal);
-
+                mealPresenter.insertCalendarMealLocal(calendarMeal);
+                mealPresenter.insertItemToFireStore(calendarMeal,null);
             }   
         }, year, month, day);
         dialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -198,7 +189,6 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     public void reflectedLists(List<String> ingredientsList, List<String> measuresList) {
         mealAdapter.setList(ingredientsList,measuresList);
     }
-
     @Override
     public void onSuccessLocalInsertion(String success) {
         Snackbar.make(nestedScrollView,success,Snackbar.LENGTH_SHORT).show();

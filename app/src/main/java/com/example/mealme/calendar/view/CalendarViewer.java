@@ -1,4 +1,4 @@
-package com.example.mealme;
+package com.example.mealme.calendar.view;
 
 import com.example.mealme.calendar.model.CalendarMeal;
 

@@ -20,6 +20,9 @@ import com.example.mealme.login.presenter.LoginHandler;
 import com.example.mealme.login.presenter.LoginPresenter;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.R;
+import com.example.mealme.model.local.MealLocalDataSource;
+import com.example.mealme.model.remote.MealRemoteDataSource;
+import com.example.mealme.model.repo.Repository;
 import com.example.mealme.utils.GoogleLogin;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,13 +70,9 @@ public class LoginFragment extends Fragment implements LoginHandler {
         googleBtn = view.findViewById(R.id.google_btn);
         this.view = view;
 
-        loginPresenter = new LoginPresenter(this,requireContext(),new GoogleLogin(this,this));
-
-        loginBtn.setOnClickListener(v->{
-            loginPresenter.loginAction(emailLogin.getText().toString(),passwordLogin.getText().toString());
-        });
-
-        txtSignUp.setOnClickListener(v->{
+        firebaseAuth = FirebaseAuth.getInstance();
+        loginPresenter = setUpPresenter();
+         txtSignUp.setOnClickListener(v->{
           Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_signUpFragment);
         });
 
@@ -81,11 +80,26 @@ public class LoginFragment extends Fragment implements LoginHandler {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
         });
 
+
+
+        loginBtn.setOnClickListener(v->{
+            loginPresenter.loginAction(emailLogin.getText().toString(),passwordLogin.getText().toString());
+        });
+
         googleBtn.setOnClickListener(v->{
             loginPresenter.loginWithGoogle();
         });
+
+
     }
 
+
+    public LoginPresenter setUpPresenter(){
+        MealLocalDataSource mealLocalDataSource = new MealLocalDataSource(requireActivity());
+        MealRemoteDataSource mealRemoteDataSource = new MealRemoteDataSource();
+        Repository repo = Repository.getInstance(mealRemoteDataSource,mealLocalDataSource);
+        return new LoginPresenter(this,requireActivity(),new GoogleLogin(this,this),repo);
+    }
     @Override
     public void onLoginFailed(String msg) {
         Snackbar.make(constraintLogin,msg,Snackbar.LENGTH_SHORT).show();

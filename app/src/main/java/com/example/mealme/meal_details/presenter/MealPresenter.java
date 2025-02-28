@@ -1,11 +1,15 @@
 package com.example.mealme.meal_details.presenter;
 
-import com.example.mealme.MealDetailsDatabaseOps;
+import com.example.mealme.meal_details.view.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.Reflector;
 import com.example.mealme.meal_details.model.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
 import com.example.mealme.model.repo.Repository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +27,18 @@ public class MealPresenter{
     MealDetailViewer mealDetailViewer;
     Reflector reflector;
     MealDetailsDatabaseOps mealDetailsDatabaseOps;
-
-
-    public MealPresenter(Repository repo, MealDetailViewer mealDetailViewer, Reflector reflector, MealDetailsDatabaseOps mealDetailsDatabaseOps) {
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firestoreDb;
+    FirebaseUser  firebaseUser;
+    String userId;
+    public MealPresenter(Repository repo, MealDetailViewer mealDetailViewer, Reflector reflector, MealDetailsDatabaseOps mealDetailsDatabaseOps){
         this.repo = repo;
         this.mealDetailViewer = mealDetailViewer;
         this.reflector = reflector;
         this.mealDetailsDatabaseOps = mealDetailsDatabaseOps;
+        firebaseAuth = FirebaseAuth.getInstance();
+        firestoreDb = FirebaseFirestore.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 
     public void getMealDetails(String idMeal){
@@ -78,7 +87,7 @@ public class MealPresenter{
                 });
     }
 
-    public void insertMeal(Meal meal){
+    public void insertMealLocal(Meal meal){
         repo.insertFavMealLocal(meal)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new CompletableObserver() {
@@ -99,7 +108,7 @@ public class MealPresenter{
                 });
     }
 
-    public void insertCalendarMeal(CalendarMeal calendarMeal){
+    public void insertCalendarMealLocal(CalendarMeal calendarMeal){
         repo.insertCalendarMealLocal(calendarMeal)
                 .subscribeOn(Schedulers.io())
                 .subscribe(new CompletableObserver() {
@@ -120,4 +129,19 @@ public class MealPresenter{
                 });
     }
 
+    public void insertItemToFireStore(CalendarMeal calendarMeal, Meal meal){
+        userId = firebaseUser.getUid();
+        if(meal == null) {
+            firestoreDb.collection("users")
+                    .document(userId)
+                    .collection("calendarMeals")
+                    .add(calendarMeal);
+
+        }else{
+            firestoreDb.collection("users")
+                    .document(userId)
+                    .collection("meals")
+                    .add(meal);
+        }
+    }
 }

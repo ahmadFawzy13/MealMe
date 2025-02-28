@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.R;
-import com.example.mealme.SearchTextDelivery;
 import com.example.mealme.search_all.model.CategorySearchPojo;
 import com.example.mealme.search_all.model.CountrySearchPojo;
 import com.example.mealme.search_all.model.IngredientSearchPojo;

@@ -5,9 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.Observer;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,16 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import com.example.mealme.CalendarViewer;
-import com.example.mealme.OnCalendarMealDeleted;
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.CalendarMealObjectTransfer;
-import com.example.mealme.DeleteCalendarMeal;
 import com.example.mealme.R;
 import com.example.mealme.calendar.presenter.CalendarPresenter;
-import com.example.mealme.favourite.view.FavouriteFragmentDirections;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
@@ -121,6 +113,7 @@ public class CalendarFragment extends Fragment implements DeleteCalendarMeal, Ca
                 .setMessage("Are you sure you want to delete this item?")
                 .setPositiveButton("Delete", (dialog, which) -> {
                     calendarPresenter.deleteCalendarMeal(calendarMeal);
+                    calendarPresenter.deleteCalendarMealFirebase(calendarMeal);
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> {
 

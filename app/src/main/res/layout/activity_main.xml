@@ -24,25 +24,17 @@
          android:background="#0A0A42"
          android:layout_gravity="bottom"
          app:menu="@menu/navgation_menu"
-         android:visibility="visible" />
+         android:visibility="visible" >
 
-    <ImageView
-        android:id="@+id/noConnectionImg"
-        android:scaleType="centerCrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:srcCompat="@drawable/no_connection" />
-
-    <TextView
-        android:id="@+id/noConnectionTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="107dp"
-        android:visibility="visible"
-        android:layout_gravity="center"
-        android:layout_marginBottom="300dp"
-        android:fontFamily="@font/pressstart"
-        android:gravity="center"
-        android:text="@string/no_connection"
-        android:textSize="30sp" />
+        <TextView
+            android:id="@+id/offlineTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mealme_is_offline"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppinssemibold"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginTop="28dp"/>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </FrameLayout>

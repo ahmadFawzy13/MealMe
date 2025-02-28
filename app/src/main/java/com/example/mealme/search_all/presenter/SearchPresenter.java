@@ -2,9 +2,9 @@ package com.example.mealme.search_all.presenter;
 
 import android.annotation.SuppressLint;
 
-import com.example.mealme.CategorySearchViewer;
-import com.example.mealme.CountrySearchViewer;
-import com.example.mealme.IngredientSearchViewer;
+import com.example.mealme.search_all.view.CategorySearchViewer;
+import com.example.mealme.search_all.view.CountrySearchViewer;
+import com.example.mealme.search_all.view.IngredientSearchViewer;
 import com.example.mealme.model.repo.Repository;
 import com.example.mealme.search_all.model.CategorySearchPojo;
 import com.example.mealme.search_all.model.CountrySearchPojo;
@@ -54,7 +54,7 @@ public class SearchPresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        countryViewer.onCountrylistFailure(e.getLocalizedMessage());
+                        countryViewer.onCountrylistFailure("Trouble Loading Items");
                     }
                 });
     }
@@ -77,7 +77,7 @@ public class SearchPresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        categoryViewer.onCategoryListFailure(e.getLocalizedMessage());
+                        categoryViewer.onCategoryListFailure("Turn on mobile data or connect to wifi");
                     }
                 });
     }
@@ -99,7 +99,7 @@ public class SearchPresenter {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        ingredientViewer.onIngredientsListFailure(e.getLocalizedMessage());
+                        ingredientViewer.onIngredientsListFailure("No Internet Connection");
                     }
                 });
     }

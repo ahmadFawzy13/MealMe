@@ -1,4 +1,4 @@
-package com.example.mealme;
+package com.example.mealme.search_by.view;
 
 import com.example.mealme.search_by.model.SearchByPojo;
 

@@ -1,4 +1,4 @@
-package com.example.mealme;
+package com.example.mealme.signup.view;
 
 public interface SignUpHandler {
 

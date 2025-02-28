@@ -1,6 +1,5 @@
-package com.example.mealme;
+package com.example.mealme.search_all.view;
 
-import com.example.mealme.search_all.model.CategorySearchPojo;
 import com.example.mealme.search_all.model.CountrySearchPojo;
 
 import java.util.List;

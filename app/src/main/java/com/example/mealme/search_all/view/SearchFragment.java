@@ -17,9 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
-import com.example.mealme.CategorySearchViewer;
-import com.example.mealme.CountrySearchViewer;
-import com.example.mealme.IngredientSearchViewer;
 import com.example.mealme.R;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.local.MealLocalDataSource;

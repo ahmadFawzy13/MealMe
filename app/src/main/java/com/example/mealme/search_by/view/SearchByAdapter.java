@@ -9,14 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.IdDelivery;
+import com.example.mealme.common.IdDelivery;
 import com.example.mealme.R;
-import com.example.mealme.home.model.HomeMealsPojo;
-import com.example.mealme.home.view.MyHomeMealsAdapter;
 import com.example.mealme.search_by.model.SearchByPojo;
 
 import java.util.List;

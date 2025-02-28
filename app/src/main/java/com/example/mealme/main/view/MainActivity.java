@@ -1,46 +1,30 @@
 package com.example.mealme.main.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.mealme.NetworkListener;
 import com.example.mealme.R;
-import com.example.mealme.home.view.HomeFragment;
 import com.example.mealme.main.presenter.MainActivityPresenter;
-import com.example.mealme.profile.view.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NetworkListener {
-
-    public static final String TAG = "MainActivity";
     private BottomNavigationView bottomNav;
     private FirebaseAuth firebaseAuth;
     private NavController navController;
-    TextView noConnectionTxt;
-    ImageView noConnectionImg;
-
-    MainActivityPresenter mainActivityPresenter;
-    private final String SHARED_PREF = "MealMePref";
+    private TextView noConnectionTxt;
+    private ImageView noConnectionImg;
+    private MainActivityPresenter mainActivityPresenter;
+    private TextView offlineTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
-        noConnectionImg = findViewById(R.id.noConnectionImg);
-        noConnectionTxt = findViewById(R.id.noConnectionTxt);
+        offlineTxt = findViewById(R.id.offlineTxt);
+        /*FirebaseApp.initializeApp(this);*/
         firebaseAuth = FirebaseAuth.getInstance();
 
         mainActivityPresenter = new MainActivityPresenter(this,this);
@@ -117,17 +101,16 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
 
     @Override
     public void onNetworkAvailable() {
-       runOnUiThread(()->{
-            noConnectionImg.setVisibility(View.GONE);
-            noConnectionTxt.setVisibility(View.GONE);
-       });
+        runOnUiThread(()->{
+            offlineTxt.setVisibility(View.GONE);
+        });
     }
 
     @Override
     public void onNetworkLost() {
         runOnUiThread(()->{
-            noConnectionImg.setVisibility(View.VISIBLE);
-            noConnectionTxt.setVisibility(View.VISIBLE);
+            offlineTxt.setVisibility(View.VISIBLE);
         });
     }
+
 }

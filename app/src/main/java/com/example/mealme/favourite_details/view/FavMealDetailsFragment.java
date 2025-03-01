@@ -16,17 +16,17 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.R;
+import com.example.mealme.common.Reflector;
+import com.example.mealme.favourite_details.presenter.FavMealDetailsPresenter;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.remote.Meal;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteMealDetailsFragment extends Fragment {
+public class FavMealDetailsFragment extends Fragment implements Reflector {
 
     TextView favMealDeName;
     TextView favMealDeCountry;
@@ -37,7 +37,7 @@ public class FavouriteMealDetailsFragment extends Fragment {
     YouTubePlayerView youTubePlayerView;
     Meal meal;
 
-    public FavouriteMealDetailsFragment() {
+    public FavMealDetailsFragment() {
     }
 
     @Override
@@ -61,63 +61,29 @@ public class FavouriteMealDetailsFragment extends Fragment {
         favMealDeCountry = view.findViewById(R.id.favMealDeCountry);
         mealImg = view.findViewById(R.id.mealDetailsImgTwo);
         favMealDeType = view.findViewById(R.id.favMealDeType);
-        youTubePlayerView = view.findViewById(R.id.fav_details_youtube_player_view);
         recyclerView = view.findViewById(R.id.recycler_fav_meal_details_pageTwo);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        meal = FavouriteMealDetailsFragmentArgs.fromBundle(getArguments()).getMeal();
+        meal = FavMealDetailsFragmentArgs.fromBundle(getArguments()).getMeal();
 
         showMealDetails();
-        ingredientsAndMeasures(meal);
+        FavMealDetailsPresenter favMealDetailsPresenter = new FavMealDetailsPresenter(this);
+        favMealDetailsPresenter.ingredientsAndMeasuresReflection(meal);
 
     }
-
     private void showMealDetails() {
         Glide.with(requireActivity()).load(meal.getStrMealThumb()).into(mealImg);
         favMealDeName.setText(meal.getStrMeal());
         favMealDeType.setText(meal.getStrCategory());
         favMealDeCountry.setText(meal.getStrArea());
         fave_meal_de_Instructions.setText(meal.getStrInstructions());
-        String youtubeId = youtubeCut(meal.getStrYoutube());
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                youTubePlayer.cueVideo(youtubeId,0);
-            }
-        });
     }
-
-    private void ingredientsAndMeasures(Meal meal){
-
-        List<String>ingredients = new ArrayList<>();
-        List<String>measures = new ArrayList<>();
-
-        for(int i = 1; i <= 20; i++){
-            try {
-                String ingredient = (String) Meal.class.getMethod("getStrIngredient"+i).invoke(meal);
-                String measure = (String) Meal.class.getMethod("getStrMeasure"+i).invoke(meal);
-
-                if(ingredient != null && !ingredient.isEmpty()){
-                    ingredients.add(ingredient);
-                    measures.add(measure);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    @Override
+    public void reflectedLists(List<String> ingredientsList, List<String> measuresList) {
         MyFavouriteMealDetailsAdapter myFavouriteMealDetailsAdapter =
-                new MyFavouriteMealDetailsAdapter(ingredients,measures,requireActivity());
+                new MyFavouriteMealDetailsAdapter(ingredientsList,measuresList,requireActivity());
         recyclerView.setAdapter(myFavouriteMealDetailsAdapter);
-    }
-
-    private String youtubeCut(String url){
-        return url.substring(url.indexOf("v=")+ 2);
     }
 }

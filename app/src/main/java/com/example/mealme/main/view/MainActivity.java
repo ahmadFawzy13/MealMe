@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_nav);
         offlineTxt = findViewById(R.id.offlineTxt);
-        /*FirebaseApp.initializeApp(this);*/
         firebaseAuth = FirebaseAuth.getInstance();
 
         mainActivityPresenter = new MainActivityPresenter(this,this);
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
     public void showBottomNav(boolean show) {
         bottomNav.setVisibility(show ? View.VISIBLE : View.GONE);
     }
-
 
     public void showSignUpDialog(){
         new MaterialAlertDialogBuilder(this)

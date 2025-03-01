@@ -124,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/favouriteMealDetailsFragment"
-        android:name="com.example.mealme.favourite_details.view.FavouriteMealDetailsFragment"
+        android:name="com.example.mealme.favourite_details.view.FavMealDetailsFragment"
         android:label="FavouriteMealDetailsFragment" >
         <argument
             android:name="meal"

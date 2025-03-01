@@ -2,7 +2,7 @@ package com.example.mealme.meal_details.presenter;
 
 import com.example.mealme.meal_details.view.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.Reflector;
+import com.example.mealme.common.Reflector;
 import com.example.mealme.model.remote.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;
 import com.example.mealme.model.repo.Repository;

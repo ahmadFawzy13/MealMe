@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.R;
-import com.example.mealme.Reflector;
+import com.example.mealme.common.Reflector;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.remote.Meal;
 import com.example.mealme.meal_details.model.MealDetailViewer;

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.mealme.R;
 import com.example.mealme.calendar.model.CalendarMeal;
+import com.example.mealme.calendar_details.presenter.CalendarDetailsPresenter;
+import com.example.mealme.common.Reflector;
 import com.example.mealme.main.view.MainActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -26,13 +28,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalendarDetailsFragment extends Fragment {
+public class CalendarDetailsFragment extends Fragment implements Reflector {
 
     TextView calendarMealDetailsName;
     TextView calendarMealDetailsCountry;
     TextView calendarMealDetailsType;
     TextView calendarMealsInstructions;
-    ImageView calendarmealImg;
+    ImageView calendarMealImg;
     RecyclerView recyclerView;
     CalendarMeal calendarMeal;
     YouTubePlayerView youTubePlayerView;
@@ -59,8 +61,7 @@ public class CalendarDetailsFragment extends Fragment {
         calendarMealsInstructions = view.findViewById(R.id.calendar_meal_details_instructions);
         calendarMealDetailsName = view.findViewById(R.id.calendarDetailsMealName);
         calendarMealDetailsCountry = view.findViewById(R.id.calendarDetailsCountryNamee);
-        calendarmealImg = view.findViewById(R.id.calendarDetailsImgPage);
-        youTubePlayerView = view.findViewById(R.id.calendar_details_youtube_player_view);
+        calendarMealImg = view.findViewById(R.id.calendarDetailsImgPage);
         calendarMealDetailsType = view.findViewById(R.id.calendarDetailsMealTypee);
         recyclerView = view.findViewById(R.id.recycler_calendar_meal_details_pagee);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
@@ -69,54 +70,22 @@ public class CalendarDetailsFragment extends Fragment {
 
         calendarMeal = CalendarDetailsFragmentArgs.fromBundle(getArguments()).getCalenderMeal();
         showMealDetails();
-        ingredientsAndMeasures(calendarMeal);
-
+        CalendarDetailsPresenter calendarDetailsPresenter = new CalendarDetailsPresenter(this);
+        calendarDetailsPresenter.ingredientsAndMeasuresReflection(calendarMeal);
     }
 
     private void showMealDetails() {
-        Glide.with(requireActivity()).load(calendarMeal.getStrMealThumb()).into(calendarmealImg);
+        Glide.with(requireActivity()).load(calendarMeal.getStrMealThumb()).into(calendarMealImg);
         calendarMealDetailsName.setText(calendarMeal.getStrMeal());
         calendarMealDetailsType.setText(calendarMeal.getStrCategory());
         calendarMealDetailsCountry.setText(calendarMeal.getStrArea());
         calendarMealsInstructions.setText(calendarMeal.getStrInstructions());
-        String youtubeId = youtubeCut(calendarMeal.getStrYoutube());
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                youTubePlayer.cueVideo(youtubeId,0);
-            }
-        });
     }
 
-    private void ingredientsAndMeasures(CalendarMeal calendarMeal){
-
-        List<String> ingredients = new ArrayList<>();
-        List<String>measures = new ArrayList<>();
-
-        for(int i = 1; i <= 20; i++){
-            try {
-                String ingredient = (String) CalendarMeal.class.getMethod("getStrIngredient"+i).invoke(calendarMeal);
-                String measure = (String) CalendarMeal.class.getMethod("getStrMeasure"+i).invoke(calendarMeal);
-
-                if(ingredient != null && !ingredient.isEmpty()){
-                    ingredients.add(ingredient);
-                    measures.add(measure);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    @Override
+    public void reflectedLists(List<String> ingredientsList, List<String> measuresList) {
         MyCalendarDetailsAdapter myCalendarDetailsAdapter =
-                new MyCalendarDetailsAdapter(ingredients,measures,requireActivity());
+                new MyCalendarDetailsAdapter(ingredientsList,measuresList,requireActivity());
         recyclerView.setAdapter(myCalendarDetailsAdapter);
-    }
-
-    private String youtubeCut(String url){
-        return url.substring(url.indexOf("v=")+ 2);
     }
 }

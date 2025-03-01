@@ -102,6 +102,8 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, FavMealOb
         FavouriteFragmentDirections.ActionFavouriteFragmentToFavouriteMealDetailsFragment action =
             FavouriteFragmentDirections.actionFavouriteFragmentToFavouriteMealDetailsFragment(meal);
                 Navigation.findNavController(view).navigate(action);
+
+
     }
 
     @Override

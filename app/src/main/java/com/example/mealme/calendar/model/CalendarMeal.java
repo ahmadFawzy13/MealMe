@@ -15,7 +15,6 @@ public class CalendarMeal extends Meal implements Serializable {
     public CalendarMeal(){
         super();
     }
-
     public CalendarMeal(Meal meal, @NonNull String date) {
         super();
         this.setIdMeal(meal.getIdMeal());
@@ -69,12 +68,10 @@ public class CalendarMeal extends Meal implements Serializable {
 
         this.date = date;
     }
-
     @NonNull
     public String getDate() {
         return date;
     }
-
     public void setDate(@NonNull String date) {
         this.date = date;
     }

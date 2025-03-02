@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mealme.calendar.model.CalendarMeal;
@@ -26,7 +24,6 @@ import com.example.mealme.R;
 import com.example.mealme.common.Reflector;
 import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.model.remote.Meal;
-import com.example.mealme.meal_details.model.MealDetailViewer;
 import com.example.mealme.meal_details.presenter.MealPresenter;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;

@@ -4,7 +4,7 @@ import com.example.mealme.meal_details.view.MealDetailsDatabaseOps;
 import com.example.mealme.calendar.model.CalendarMeal;
 import com.example.mealme.common.Reflector;
 import com.example.mealme.model.remote.Meal;
-import com.example.mealme.meal_details.model.MealDetailViewer;
+import com.example.mealme.meal_details.view.MealDetailViewer;
 import com.example.mealme.model.repo.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -1,4 +1,4 @@
-package com.example.mealme.meal_details.model;
+package com.example.mealme.meal_details.view;
 
 import com.example.mealme.model.remote.Meal;
 

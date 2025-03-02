@@ -7,12 +7,11 @@ import java.util.List;
 
 public class CategorySearchResponse {
     @SerializedName("categories")
-    List<CategorySearchPojo> listOfCategories;
+    private List<CategorySearchPojo> listOfCategories;
 
     public List<CategorySearchPojo> getListOfCategories() {
         return listOfCategories;
     }
-
     public void setListOfCategories(List<CategorySearchPojo> listOfCategories) {
         this.listOfCategories = listOfCategories;
     }

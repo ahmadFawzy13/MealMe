@@ -7,7 +7,7 @@ import java.util.List;
 public class SearchByResponse {
 
     @SerializedName("meals")
-    List<SearchByPojo> listOfSearchMeals;
+    private List<SearchByPojo> listOfSearchMeals;
 
     public SearchByResponse(List<SearchByPojo> listOfSearchMeals) {
         this.listOfSearchMeals = listOfSearchMeals;

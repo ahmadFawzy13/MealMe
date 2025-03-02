@@ -8,7 +8,7 @@ import java.util.List;
 public class IngredientSearchResponse {
 
     @SerializedName("meals")
-    List<IngredientSearchPojo> listOfIngredients;
+    private List<IngredientSearchPojo> listOfIngredients;
 
     public List<IngredientSearchPojo> getListOfIngredients() {
         return listOfIngredients;

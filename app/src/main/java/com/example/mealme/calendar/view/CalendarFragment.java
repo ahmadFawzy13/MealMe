@@ -33,20 +33,14 @@ import java.util.List;
 public class CalendarFragment extends Fragment implements DeleteCalendarMeal, CalendarMealObjectTransfer, CalendarViewer, OnCalendarMealDeleted {
 
     private Calendar calendar;
-    private int year;
-    private int month;
-    private int day;
-    List<CalendarMeal>calendarMealList;
-    View view;
-    RecyclerView recyclerView;
-    DatePicker datePicker;
-    CalendarPresenter calendarPresenter;
-    MyCalendarAdapter myCalendarAdapter;
-    String date;
-    ConstraintLayout constraintLayout;
-
-    public CalendarFragment() {
-    }
+    private int year,month,day;
+    private View view;
+    private RecyclerView recyclerView;
+    private DatePicker datePicker;
+    private CalendarPresenter calendarPresenter;
+    private MyCalendarAdapter myCalendarAdapter;
+    private String date;
+    private ConstraintLayout constraintLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

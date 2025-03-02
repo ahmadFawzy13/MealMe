@@ -28,17 +28,12 @@ import java.util.List;
 
 public class FavMealDetailsFragment extends Fragment implements Reflector {
 
-    TextView favMealDeName;
-    TextView favMealDeCountry;
-    TextView favMealDeType;
-    TextView fave_meal_de_Instructions;
-    ImageView mealImg;
-    RecyclerView recyclerView;
-    YouTubePlayerView youTubePlayerView;
-    Meal meal;
-
-    public FavMealDetailsFragment() {
-    }
+    private TextView favMealDeName,favMealDeCountry,favMealDeType;
+    private TextView fave_meal_de_Instructions;
+    private ImageView mealImg;
+    private RecyclerView recyclerView;
+    private YouTubePlayerView youTubePlayerView;
+    private Meal meal;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,7 @@ public class FavMealDetailsFragment extends Fragment implements Reflector {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         fave_meal_de_Instructions = view.findViewById(R.id.fave_meal_de_Instructions);
         favMealDeName = view.findViewById(R.id.favMealDeName);
         favMealDeCountry = view.findViewById(R.id.favMealDeCountry);

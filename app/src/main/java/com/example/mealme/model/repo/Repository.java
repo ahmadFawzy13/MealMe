@@ -37,26 +37,20 @@ public class Repository {
     public Flowable<List<Meal>> getAllFavLocalMeals(){
         return localSource.getAllFavMeals();
     }
-    public Completable insertFavMealLocal(Meal meal){
-        return localSource.insertMeal(meal);
+    public Flowable<List<CalendarMeal>> getCalendarLocalMealsByDate(String date){
+        return localSource.getCalendarMealsByDate(date);
     }
-    public Completable deleteFavMealLocal(Meal meal){return localSource.deleteMeal(meal);}
     public Single <RandomMealResponse> getRandomRemoteMeal(){
-       return remoteSource.getRandomMeal();
+        return remoteSource.getRandomMeal();
+    }
+    public Single<CategorySearchResponse>getSearchCategories(){
+        return remoteSource.getSearchCategories();
     }
     public Single<HomeMealResponse> getHomeRemoteMeals(){
         return remoteSource.getHomeMeal();
     }
     public Single<MealDetailsResponse> getMealDetailsRemote(String mealId){
         return remoteSource.getMealDetails(mealId);
-    }
-    public Flowable<List<CalendarMeal>> getCalendarLocalMealsByDate(String date){
-        return localSource.getCalendarMealsByDate(date);
-    }
-    public Completable insertCalendarMealLocal(CalendarMeal calendarMeal){return localSource.insertCalendarMeal(calendarMeal);}
-    public Completable  deleteCalendarMealLocal(CalendarMeal calendarMeal){return localSource.deleteCalenderMeal(calendarMeal);}
-    public Single<CategorySearchResponse>getSearchCategories(){
-        return remoteSource.getSearchCategories();
     }
     public Single<CountrySearchResponse>getSearchCountries(){
         return remoteSource.getSearchCountries();
@@ -73,4 +67,10 @@ public class Repository {
     public Completable deleteCalendarTable(){
         return localSource.deleteCalendarMealsTable();
     }
+    public Completable insertCalendarMealLocal(CalendarMeal calendarMeal){return localSource.insertCalendarMeal(calendarMeal);}
+    public Completable  deleteCalendarMealLocal(CalendarMeal calendarMeal){return localSource.deleteCalenderMeal(calendarMeal);}
+    public Completable insertFavMealLocal(Meal meal){
+        return localSource.insertMeal(meal);
+    }
+    public Completable deleteFavMealLocal(Meal meal){return localSource.deleteMeal(meal);}
 }

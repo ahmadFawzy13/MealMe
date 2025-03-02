@@ -19,13 +19,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CalendarPresenter {
 
-    Repository repo;
-    CalendarViewer calendarViewer;
-    OnCalendarMealDeleted onCalendarMealDeleted;
-    FirebaseAuth firebaseAuth;
-    FirebaseFirestore firestoreDb;
-    FirebaseUser firebaseUser;
-    String userId;
+    private Repository repo;
+    private CalendarViewer calendarViewer;
+    private OnCalendarMealDeleted onCalendarMealDeleted;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestoreDb;
+    private FirebaseUser firebaseUser;
+    private String userId;
 
     public CalendarPresenter(Repository repo, CalendarViewer calendarViewer, OnCalendarMealDeleted onCalendarMealDeleted) {
         this.repo = repo;

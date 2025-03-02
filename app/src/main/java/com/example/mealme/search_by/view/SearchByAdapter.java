@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.common.IdDelivery;
+import com.example.mealme.common.onMealClickListener;
 import com.example.mealme.R;
 import com.example.mealme.search_by.model.SearchByPojo;
 
@@ -22,26 +22,18 @@ public class SearchByAdapter extends RecyclerView.Adapter<SearchByAdapter.ViewHo
 
     private Context context;
     private List<SearchByPojo> searchList;
+    private onMealClickListener onMealClickListener;
 
-    //String searchText;
-
-    IdDelivery idDelivery;
-
-
-    public SearchByAdapter(Context context, List<SearchByPojo> searchList, IdDelivery idDelivery) {
+    public SearchByAdapter(Context context, List<SearchByPojo> searchList, onMealClickListener onMealClickListener) {
         this.context = context;
         this.searchList = searchList;
-        this.idDelivery = idDelivery;
+        this.onMealClickListener = onMealClickListener;
     }
 
     public void setList(List<SearchByPojo> searchList) {
         this.searchList = searchList;
         notifyDataSetChanged();
     }
-
-   /* public void searchText(String searchText){
-        this.searchText = searchText;
-    }*/
 
     @NonNull
     @Override
@@ -57,7 +49,7 @@ public class SearchByAdapter extends RecyclerView.Adapter<SearchByAdapter.ViewHo
         Glide.with(context).load(searchList.get(position).getStrMealThumb()).into(holder.searchByImg);
 
         holder.cardView.setOnClickListener(v->{
-            idDelivery.idTransfer(searchList.get(position).getIdMeal());
+            onMealClickListener.onMealClicked(searchList.get(position).getIdMeal());
         });
     }
 
@@ -67,9 +59,9 @@ public class SearchByAdapter extends RecyclerView.Adapter<SearchByAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView searchByName;
-        ImageView searchByImg;
-        CardView cardView;
+        private TextView searchByName;
+        private ImageView searchByImg;
+        private CardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             searchByName = itemView.findViewById(R.id.searchByName);

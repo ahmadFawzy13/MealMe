@@ -82,7 +82,7 @@ public class MealPresenter{
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        mealDetailViewer.showMealDetailsErrorMsg(e.getLocalizedMessage());
+                        mealDetailViewer.showMealDetailsErrorMsg("Couldn't show item");
                     }
                 });
     }

@@ -22,14 +22,14 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
 
         private Context context;
         private List<Meal> favMeals;
-        DeleteMeal deleteMeal;
-        FavMealObjectTransfer favMealObjectTransfer;
-        Meal meal;
+        private DeleteFavMeal deleteFavMeal;
+        private FavMealObjectTransfer favMealObjectTransfer;
+        private Meal meal;
 
-    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteMeal deleteMeal, FavMealObjectTransfer favMealObjectTransfer) {
+    public MyFavouriteAdapter(Context context, List<Meal> favMeals, DeleteFavMeal deleteFavMeal, FavMealObjectTransfer favMealObjectTransfer) {
         this.context = context;
         this.favMeals = favMeals;
-        this.deleteMeal = deleteMeal;
+        this.deleteFavMeal = deleteFavMeal;
         this.favMealObjectTransfer = favMealObjectTransfer;
     }
 
@@ -54,9 +54,8 @@ public class MyFavouriteAdapter extends RecyclerView.Adapter<MyFavouriteAdapter.
             Glide.with(context).load(favMeals.get(position).getStrMealThumb()).into(holder.favMealImg);
 
             holder.deleteFavButton.setOnClickListener(v->{
-
                 meal = favMeals.get(position);
-                deleteMeal.mealToDelete(meal);
+                deleteFavMeal.mealToDelete(meal);
             });
 
             holder.favCard.setOnClickListener(v->{

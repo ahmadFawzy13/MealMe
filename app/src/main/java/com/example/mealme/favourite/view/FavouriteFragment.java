@@ -29,18 +29,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteFragment extends Fragment implements DeleteMeal, FavMealObjectTransfer, FavouriteMealViewer {
-    FavouritePresenter favouritePresenter;
-    MyFavouriteAdapter myFavouriteAdapter;
-    RecyclerView recyclerView;
-    Button deleteFavBtn;
-    ConstraintLayout constraintLayout;
-    List<Meal>favouriteMealList;
-    View view;
-    FirebaseAuth firebaseAuth;
+public class FavouriteFragment extends Fragment implements DeleteFavMeal, FavMealObjectTransfer, FavouriteMealViewer {
+    private FavouritePresenter favouritePresenter;
+    private MyFavouriteAdapter myFavouriteAdapter;
+    private RecyclerView recyclerView;
+    private ConstraintLayout constraintLayout;
+    private View view;
 
-    public FavouriteFragment() {
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +51,6 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, FavMealOb
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        deleteFavBtn = view.findViewById(R.id.deleteFavBtn);
         recyclerView = view.findViewById(R.id.recycler_frag);
         constraintLayout = view.findViewById(R.id.favouriteLayout);
         recyclerView.setHasFixedSize(true);
@@ -64,8 +58,6 @@ public class FavouriteFragment extends Fragment implements DeleteMeal, FavMealOb
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         this.view = view;
-
-        firebaseAuth = FirebaseAuth.getInstance();
 
         favouritePresenter = setFavouritePresenter();
 

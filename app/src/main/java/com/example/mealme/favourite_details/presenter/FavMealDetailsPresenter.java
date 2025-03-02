@@ -15,7 +15,6 @@ public class FavMealDetailsPresenter {
         this.reflector = reflector;
     }
 
-
     public void ingredientsAndMeasuresReflection(Meal meal){
         List<String> ingredients = new ArrayList<>();
         List<String>measures = new ArrayList<>();

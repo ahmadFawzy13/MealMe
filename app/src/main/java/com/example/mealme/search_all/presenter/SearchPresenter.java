@@ -21,13 +21,13 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPresenter {
-    Repository repo;
-    CountrySearchViewer countryViewer;
-    CategorySearchViewer categoryViewer;
-    IngredientSearchViewer ingredientViewer;
-    List<CategorySearchPojo> categoriesSearch;
-    List<CountrySearchPojo> countriesSearch;
-    List<IngredientSearchPojo> ingredientSearch;
+    private Repository repo;
+    private CountrySearchViewer countryViewer;
+    private CategorySearchViewer categoryViewer;
+    private IngredientSearchViewer ingredientViewer;
+    private List<CategorySearchPojo> categoriesSearch;
+    private List<CountrySearchPojo> countriesSearch;
+    private List<IngredientSearchPojo> ingredientSearch;
 
     public SearchPresenter(Repository repo, CountrySearchViewer countryViewer, CategorySearchViewer categoryViewer, IngredientSearchViewer ingredientViewer) {
         this.repo = repo;

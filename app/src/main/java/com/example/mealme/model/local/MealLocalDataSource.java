@@ -11,37 +11,23 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 
 public class MealLocalDataSource {
-
-    MealDao mealDao;
-    Flowable<List<Meal>> mealStorage;
-    CalendarMealDao calendarMealDao;
+    private MealDao mealDao;
+    private CalendarMealDao calendarMealDao;
     public MealLocalDataSource(Context context) {
         AppDataBase db = AppDataBase.getInstance(context);
         mealDao = db.getMealDao();
         calendarMealDao = db.getCalendarMealDao();
-        mealStorage = mealDao.getAllMeals();
     }
 
     public Flowable<List<Meal>> getAllFavMeals(){
-        return mealStorage;
+        return mealDao.getAllMeals();
     }
-
-    public Completable insertMeal(Meal meal){
-        return mealDao.insertMeal(meal);
-    }
-
-    public Completable deleteMeal(Meal meal){
-        return mealDao.deleteMeal(meal);
-    }
-
     public Flowable<List<CalendarMeal>> getCalendarMealsByDate(String date){
         return calendarMealDao.getCalendarMealsByDate(date);
     }
-
     public Completable insertCalendarMeal(CalendarMeal calendarMeal){
              return calendarMealDao.insertMeal(calendarMeal);
     }
-
     public Completable deleteCalenderMeal(CalendarMeal calendarMeal){
           return calendarMealDao.deleteMeal(calendarMeal);
     }
@@ -50,5 +36,11 @@ public class MealLocalDataSource {
     }
     public Completable deleteCalendarMealsTable(){
         return calendarMealDao.deleteAllCalendarMeals();
+    }
+    public Completable insertMeal(Meal meal){
+        return mealDao.insertMeal(meal);
+    }
+    public Completable deleteMeal(Meal meal){
+        return mealDao.deleteMeal(meal);
     }
 }

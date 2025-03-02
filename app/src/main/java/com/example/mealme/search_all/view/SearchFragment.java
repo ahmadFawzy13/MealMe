@@ -39,20 +39,14 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
 
     private TextInputEditText textInputEditText;
     private ChipGroup chipGroup;
-    private Chip categoryChip;
-    private Chip ingChip;
-    private Chip countryChip;
-    SearchPresenter searchPresenter;
-    RecyclerView recyclerView;
-    ConstraintLayout searchConstraint;
-    View view;
-    String chipText;
-    MySearchAdapter mySearchAdapter;
-    List<CategorySearchPojo>searchCategories;
-    TextInputLayout textField;
-
-    public SearchFragment() {
-    }
+    private Chip categoryChip,ingChip,countryChip;
+    private SearchPresenter searchPresenter;
+    private RecyclerView recyclerView;
+    private ConstraintLayout searchConstraint;
+    private View view;
+    private String chipText;
+    private MySearchAdapter mySearchAdapter;
+    private TextInputLayout textField;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,12 +63,12 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         textInputEditText = view.findViewById(R.id.searchText);
         chipGroup = view.findViewById(R.id.chipGroup);
         categoryChip = view.findViewById(R.id.categoryChip);
         countryChip = view.findViewById(R.id.countryChip);
         ingChip = view.findViewById(R.id.ingChip);
-        searchConstraint = view.findViewById(R.id.searchConstraint);
         textField = view.findViewById(R.id.textField);
         this.view = view;
 
@@ -115,7 +109,9 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     }
     @Override
     public void onCategoryListSuccess(List<CategorySearchPojo> categoriesList) {
+
         mySearchAdapter.setCategoriesList(categoriesList);
+
         textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,7 +131,9 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     }
     @Override
     public void onCountryListSuccess(List<CountrySearchPojo> countriesList) {
+
         mySearchAdapter.setCountriesList(countriesList);
+
         textInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -155,7 +153,9 @@ public class SearchFragment extends Fragment implements CountrySearchViewer, Cat
     }
     @Override
     public void onIngredientsListSuccess(List<IngredientSearchPojo> ingredientsList) {
+
             mySearchAdapter.setIngredientsList(ingredientsList);
+
             textInputEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -1,8 +1,8 @@
 package com.example.mealme.search_all.model;
 
 public class CategorySearchPojo {
-    public String strCategory;
-    public String strCategoryThumb;
+    private String strCategory;
+    private String strCategoryThumb;
 
     public CategorySearchPojo(String strCategory, String strCategoryThumb) {
         this.strCategory = strCategory;
@@ -25,11 +25,4 @@ public class CategorySearchPojo {
         this.strCategoryThumb = strCategoryThumb;
     }
 
-    @Override
-    public String toString() {
-        return "CategorySearchPojo{" +
-                "strCategory='" + strCategory + '\'' +
-                ", strCategoryThumb='" + strCategoryThumb + '\'' +
-                '}';
-    }
 }

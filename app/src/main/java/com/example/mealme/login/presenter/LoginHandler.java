@@ -8,5 +8,4 @@ public interface LoginHandler {
     void onEditPasswordError(String err);
     void onSignInWithGoogleSuccess(String msg);
     void onSignInWithGoogleFailure(String err);
-
 }

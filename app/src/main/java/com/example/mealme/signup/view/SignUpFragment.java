@@ -20,16 +20,11 @@ import com.example.mealme.signup.presenter.SignUpPresenter;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SignUpFragment extends Fragment implements SignUpHandler {
-
-    private EditText usernameSignUp,emailSignUp,passwordSignUp,confirmPasswordSignUp;
+    private EditText emailSignUp,passwordSignUp,confirmPasswordSignUp;
     private Button signUpBtn;
     private ConstraintLayout constraintSignUp;
     private View view;
     private SignUpPresenter signUpPresenter;
-
-    public SignUpFragment() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +41,6 @@ public class SignUpFragment extends Fragment implements SignUpHandler {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        usernameSignUp = view.findViewById(R.id.usernameSignUp);
         emailSignUp = view.findViewById(R.id.emailSignUp);
         passwordSignUp = view.findViewById(R.id.passwordSignUp);
         signUpBtn = view.findViewById(R.id.loginBtn);
@@ -58,18 +52,12 @@ public class SignUpFragment extends Fragment implements SignUpHandler {
 
 
         signUpBtn.setOnClickListener(v->{
-            String username = usernameSignUp.getText().toString().trim();
             String email = emailSignUp.getText().toString().trim();
             String password = passwordSignUp.getText().toString().trim();
             String confirmPassword = confirmPasswordSignUp.getText().toString().trim();
-            signUpPresenter.createAccount(username,email,password,confirmPassword);
+            signUpPresenter.createAccount(email,password,confirmPassword);
         });
     }
-    @Override
-    public void onUsernameError(String err) {
-        usernameSignUp.setError(err);
-    }
-
     @Override
     public void onEmailError(String err) {
         emailSignUp.setError(err);

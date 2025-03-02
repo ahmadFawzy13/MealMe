@@ -23,19 +23,16 @@ public class SignUpPresenter {
         this.signUpHandler = signUpHandler;
     }
 
-    public void createAccount(String username, String email, String password, String confirmPassword){
-        boolean isValid = validateCredentials(username,email,password,confirmPassword);
+    public void createAccount(String email, String password, String confirmPassword){
+        boolean isValid = validateCredentials(email,password,confirmPassword);
         if(!isValid){
             return;
         }
+
         createFirebaseAccount(email,password);
     }
 
-    private boolean validateCredentials(String username, String email, String password, String confirmPassword){
-        if(username.isEmpty()){
-            signUpHandler.onUsernameError("Please Insert a Username");
-            return false;
-        }
+    private boolean validateCredentials(String email, String password, String confirmPassword){
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             signUpHandler.onEmailError("Invalid Email");
             return false;

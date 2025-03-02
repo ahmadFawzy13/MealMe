@@ -24,9 +24,6 @@ public class LoginPresenter {
     private final Context context;
     private GoogleLogin googleLogin;
     Repository repo;
-    private FirebaseUser firebaseUser;
-    private FirebaseFirestore firestoreDb;
-    String userId;
 
     public LoginPresenter(LoginHandler loginHandler, Context context, GoogleLogin googleLogin, Repository repo) {
         this.loginHandler = loginHandler;
@@ -34,8 +31,6 @@ public class LoginPresenter {
         this.googleLogin = googleLogin;
         this.repo = repo;
         firebaseAuth = FirebaseAuth.getInstance();
-        firestoreDb = FirebaseFirestore.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
     }
     public void loginAction(String email, String password ) {
         boolean isValid = validateLogin(email,password);

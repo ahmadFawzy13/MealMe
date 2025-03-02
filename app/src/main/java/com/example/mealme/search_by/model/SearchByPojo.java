@@ -36,12 +36,4 @@ public class SearchByPojo {
         this.idMeal = idMeal;
     }
 
-    @Override
-    public String toString() {
-        return "SearchByPojo{" +
-                "strMeal='" + strMeal + '\'' +
-                ", strMealThumb='" + strMealThumb + '\'' +
-                ", idMeal='" + idMeal + '\'' +
-                '}';
-    }
 }

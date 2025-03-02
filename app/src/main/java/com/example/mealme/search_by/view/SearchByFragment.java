@@ -16,8 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mealme.common.IdDelivery;
+import com.example.mealme.common.onMealClickListener;
 import com.example.mealme.R;
+import com.example.mealme.main.view.MainActivity;
 import com.example.mealme.search_by.model.SearchByPojo;
 import com.example.mealme.search_by.presenter.SearchByPresenter;
 import com.example.mealme.model.local.MealLocalDataSource;
@@ -31,21 +32,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchByFragment extends Fragment implements SearchMealsViewer, IdDelivery {
+public class SearchByFragment extends Fragment implements SearchMealsViewer, onMealClickListener {
 
-    SearchByPresenter searchByPresenter;
-    String receivedChipText;
-    String receivedItemNameToSearch;
-    TextInputLayout textSearch;
-    RecyclerView recyclerView;
-    SearchByAdapter searchByAdapter;
-    ConstraintLayout constraintLayout;
-    TextInputEditText textInputEditText;
-    View view;
-
-
-    public SearchByFragment() {
-    }
+    private SearchByPresenter searchByPresenter;
+    private String receivedChipText;
+    private String receivedItemNameToSearch;
+    private TextInputLayout textSearch;
+    private RecyclerView recyclerView;
+    private SearchByAdapter searchByAdapter;
+    private ConstraintLayout constraintLayout;
+    private TextInputEditText textInputEditText;
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class SearchByFragment extends Fragment implements SearchMealsViewer, IdD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ((MainActivity) requireActivity()).showBottomNav(true);
         return inflater.inflate(R.layout.fragment_search_by, container, false);
     }
 
@@ -133,9 +130,9 @@ public class SearchByFragment extends Fragment implements SearchMealsViewer, IdD
     }
 
     @Override
-    public void idTransfer(String id) {
+    public void onMealClicked(String idMeal) {
         SearchByFragmentDirections.ActionSearchByFragmentToMealFragment action
-                = SearchByFragmentDirections.actionSearchByFragmentToMealFragment(id);
+                = SearchByFragmentDirections.actionSearchByFragmentToMealFragment(idMeal);
         Navigation.findNavController(view).navigate(action);
     }
 }

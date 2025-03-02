@@ -25,8 +25,8 @@ public class MySearchAdapter extends RecyclerView.Adapter<MySearchAdapter.ViewHo
     private List<CountrySearchPojo>countriesList;
     private List <IngredientSearchPojo>ingredientsList;
     private final Context context;
-    String searchText;
-    onSearchItemClickedListener onSearchItemClickedListener;
+    private String searchText;
+    private onSearchItemClickedListener onSearchItemClickedListener;
 
     public MySearchAdapter(List<CategorySearchPojo> categoriesList, List<CountrySearchPojo> countriesList, List<IngredientSearchPojo> ingredientsList, Context context, String searchText,onSearchItemClickedListener onSearchItemClickedListener) {
         this.categoriesList = categoriesList;

@@ -1,4 +1,4 @@
-package com.example.mealme.favourite.presenter;
+package com.example.mealme.favourite.view;
 
 import com.example.mealme.model.remote.Meal;
 

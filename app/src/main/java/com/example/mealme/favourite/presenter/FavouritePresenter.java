@@ -18,12 +18,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavouritePresenter {
 
-    Repository repo;
-    FavouriteMealViewer favouriteMealViewer;
-    FirebaseAuth firebaseAuth;
-    FirebaseFirestore firestoreDb;
-    FirebaseUser firebaseUser;
-    String userId;
+    private Repository repo;
+    private FavouriteMealViewer favouriteMealViewer;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestoreDb;
+    private FirebaseUser firebaseUser;
+    private String userId;
 
     public FavouritePresenter(Repository repo, FavouriteMealViewer favouriteMealViewer) {
         this.repo = repo;

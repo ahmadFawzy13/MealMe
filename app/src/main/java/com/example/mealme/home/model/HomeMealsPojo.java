@@ -11,21 +11,21 @@ public class HomeMealsPojo {
     private String strMeal;
     private String strMealThumb;
 
-
     public HomeMealsPojo(){
 
     }
-    public HomeMealsPojo(String idMeal, String strMeal, String strMealThumb) {
+    public HomeMealsPojo(@NonNull String idMeal, String strMeal, String strMealThumb) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strMealThumb = strMealThumb;
     }
 
+    @NonNull
     public String getIdMeal() {
         return idMeal;
     }
 
-    public void setIdMeal(String idMeal) {
+    public void setIdMeal(@NonNull String idMeal) {
         this.idMeal = idMeal;
     }
 

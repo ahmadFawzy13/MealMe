@@ -1,5 +1,7 @@
 package com.example.mealme.search_by.presenter;
 
+import android.annotation.SuppressLint;
+
 import com.example.mealme.search_by.view.SearchMealsViewer;
 import com.example.mealme.search_by.model.SearchByPojo;
 import com.example.mealme.model.repo.Repository;
@@ -15,9 +17,9 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchByPresenter {
-    Repository repo;
-    SearchMealsViewer searchMealsViewer;
-    List<SearchByPojo>searchResultList;
+   private Repository repo;
+    private SearchMealsViewer searchMealsViewer;
+    private List<SearchByPojo>searchResultList;
 
     public SearchByPresenter(Repository repo, SearchMealsViewer searchMealsViewer) {
         this.repo = repo;
@@ -48,6 +50,7 @@ public class SearchByPresenter {
 
     }
 
+    @SuppressLint("CheckResult")
     public void textSearchWatch(CharSequence s, List<SearchByPojo> searchMealsList, SearchByAdapter searchByAdapter) {
 
         Observable<SearchByPojo> observable = Observable.fromIterable(searchMealsList);

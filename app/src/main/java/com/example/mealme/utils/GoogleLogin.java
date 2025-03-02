@@ -28,6 +28,7 @@ public class GoogleLogin {
     private ActivityResultLauncher<Intent> launcher;
 
     public GoogleLogin(Fragment fragment, LoginHandler loginHandler) {
+
         firebaseAuth = FirebaseAuth.getInstance();
         this.fragment = fragment;
         this.loginHandler = loginHandler;
@@ -36,9 +37,10 @@ public class GoogleLogin {
                 .requestIdToken(fragment.getString(R.string.client_id))
                 .requestEmail()
                 .build();
+
         googleSignInClient = GoogleSignIn.getClient(fragment.requireContext(), googleSignInOptions);
         launcher = fragment.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == fragment.getActivity().RESULT_OK && result.getData() != null) {
+            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                 try {
                     GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -48,7 +50,6 @@ public class GoogleLogin {
                 }
             }
         });
-
     }
 
     public void signIn() {

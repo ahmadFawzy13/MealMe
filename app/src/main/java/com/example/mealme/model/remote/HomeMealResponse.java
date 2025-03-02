@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HomeMealResponse {
     @SerializedName("meals")
-    List<HomeMealsPojo> listOfMealsResponse;
+    private List<HomeMealsPojo> listOfMealsResponse;
 
     public HomeMealResponse(List<HomeMealsPojo> listOfMealsResponse) {
         this.listOfMealsResponse = listOfMealsResponse;

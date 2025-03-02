@@ -46,28 +46,18 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
     private MealPresenter mealPresenter;
     private MealAdapter mealAdapter;
     private RecyclerView recyclerView;
-    private Button calendarBtn;
-    private Button saveFavBtn;
+    private Button calendarBtn,saveFavBtn;
     private Calendar calendar;
-    private int year;
-    private int month;
-    private int day;
+    private int year,month,day;
     private String receivedId;
     private ImageView mealDetailsImg;
-    private TextView detailsMealName;
-    private TextView mealType;
-    private TextView detailsCountryName;
-    private TextView mealInstructions;
+    private TextView detailsMealName,mealType;
+    private TextView detailsCountryName,mealInstructions;
     private YouTubePlayerView youTubePlayerView;
     private NestedScrollView nestedScrollView;
     private CalendarMeal calendarMeal;
     private FirebaseAuth firebaseAuth;
-    private String userId;
     private Meal meal;
-
-    public MealFragment() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,11 +115,11 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
                 mealPresenter.insertItemToFireStore(null,meal);
             }
         });
+
         calendarBtn.setOnClickListener(v->{
             if(firebaseAuth.getCurrentUser() == null){
                 ((MainActivity) requireActivity()).showSignUpDialog();
             }else{
-                Log.i("TAG", "onViewCreated: " + firebaseAuth.getCurrentUser().getUid());
                 insertCalendarMealDatePicker();
             }
         });
@@ -149,23 +139,22 @@ public class MealFragment extends Fragment implements MealDetailViewer, Reflecto
         mealType.setText(listOfMeals.get(0).getStrCategory());
         detailsCountryName.setText(listOfMeals.get(0).getStrArea());
         mealInstructions.setText(listOfMeals.get(0).getStrInstructions());
-        String youtubeId = youtubeCut(listOfMeals.get(0).getStrYoutube());
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                youTubePlayer.cueVideo(youtubeId,0);
-            }
-        });
-    }
 
+        if(!listOfMeals.get(0).getStrYoutube().isEmpty() || listOfMeals.get(0).getStrYoutube() != null){
+            String youtubeId = listOfMeals.get(0).getStrYoutube();
+            String youtubeCode = youtubeId.substring(youtubeId.indexOf("v=")+2);
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    super.onReady(youTubePlayer);
+                    youTubePlayer.cueVideo(youtubeCode,0);
+                }
+            });
+        }
+    }
     @Override
     public void showMealDetailsErrorMsg(String err) {
-        Toast.makeText(requireActivity(), err, Toast.LENGTH_SHORT).show();
-    }
-
-    private String youtubeCut(String url){
-        return url.substring(url.indexOf("v=")+ 2);
+        Snackbar.make(nestedScrollView,err,Snackbar.LENGTH_SHORT).show();
     }
 
     private void insertCalendarMealDatePicker(){

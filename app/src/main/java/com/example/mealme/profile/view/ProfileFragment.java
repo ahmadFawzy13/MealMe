@@ -25,29 +25,29 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
-    Button wklyPlnBtn;
-    Button fvrtBtn;
-    Button signOutBtn;
-    ProfilePresenter profilePresenter;
+    private Button wklyPlnBtn,fvrtBtn,signOutBtn;
+    private ProfilePresenter profilePresenter;
 
-    public ProfileFragment() {
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          ((MainActivity) requireActivity()).showBottomNav(true);
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         wklyPlnBtn = view.findViewById(R.id.wklyPlnBtn);
         fvrtBtn = view.findViewById(R.id.fvrtBtn);
         signOutBtn = view.findViewById(R.id.signOutBtn);
+
         profilePresenter = setUpPresenter();
 
         signOutBtn.setOnClickListener(v -> {

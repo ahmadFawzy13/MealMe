@@ -8,7 +8,7 @@ import java.util.List;
 public class RandomMealResponse {
 
     @SerializedName("meals")
-    List<RandomMealPojo> listOfMealsResponse;
+    private List<RandomMealPojo> listOfMealsResponse;
 
     public RandomMealResponse(List<RandomMealPojo> listOfMealsResponse) {
         this.listOfMealsResponse = listOfMealsResponse;

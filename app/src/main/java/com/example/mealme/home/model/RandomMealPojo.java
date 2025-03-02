@@ -4,7 +4,6 @@ public class RandomMealPojo extends HomeMealsPojo {
 
     private String strInstructions;
 
-
     public RandomMealPojo(){
         super();
 

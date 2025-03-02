@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CountrySearchResponse {
     @SerializedName("meals")
-    List<CountrySearchPojo> listOfCountries;
+    private List<CountrySearchPojo> listOfCountries;
     public List<CountrySearchPojo> getListOfCountries() {
         return listOfCountries;
     }

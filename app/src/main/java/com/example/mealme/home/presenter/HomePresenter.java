@@ -1,10 +1,12 @@
 package com.example.mealme.home.presenter;
 
+import android.content.SharedPreferences;
+
 import com.example.mealme.calendar.model.CalendarMeal;
-import com.example.mealme.home.model.HomeMealViewer;
+import com.example.mealme.home.view.HomeMealViewer;
 import com.example.mealme.home.model.HomeMealsPojo;
 import com.example.mealme.home.model.RandomMealPojo;
-import com.example.mealme.home.model.RandomMealViewer;
+import com.example.mealme.home.view.RandomMealViewer;
 import com.example.mealme.model.remote.Meal;
 import com.example.mealme.model.repo.Repository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -22,12 +26,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomePresenter {
     private Repository repo;
-    HomeMealViewer homeMealViewer;
-    RandomMealViewer randomMealViewer;
+    private HomeMealViewer homeMealViewer;
+    private RandomMealViewer randomMealViewer;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseFirestore firestoreDb;
-    String userId;
+    private String userId;
 
     public HomePresenter(Repository repo, HomeMealViewer homeMealViewer, RandomMealViewer randomMealViewer) {
         this.repo = repo;
@@ -61,7 +65,7 @@ public class HomePresenter {
                 });
     }
 
-    public void getRandomMeal(){
+    public void getRandomMeal(SharedPreferences sp){
         repo.getRandomRemoteMeal()
                 .subscribeOn(Schedulers.io())
                 .map(item->item.getListOfMealsResponse())
@@ -74,12 +78,13 @@ public class HomePresenter {
 
                     @Override
                     public void onSuccess(@NonNull List<RandomMealPojo> randomMealPojo) {
-                        randomMealViewer.showRandomMeal(randomMealPojo);
+                        randomMealViewer.onRandomMealSuccess(randomMealPojo);
+                        saveEditorsPick(randomMealPojo,sp);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        randomMealViewer.showRandomMealErrorMsg("No Internet Connection");
+                        randomMealViewer.onRandomMealError("No Internet Connection");
                     }
                 });
     }
@@ -121,5 +126,38 @@ public class HomePresenter {
                         insertCalendarMealLocal(calendarMeal);
                     }
                 });
+    }
+
+    public void getEditorsPick(SharedPreferences sp){
+        if(sp.getString("currentDate","").equals(LocalDate.now().toString())){
+
+            RandomMealPojo randomMealPojo = getSavedEditorsPick(sp);
+            List<RandomMealPojo>randomMealPojoList = new ArrayList<>();
+            randomMealPojoList.add(randomMealPojo);
+            randomMealViewer.onRandomMealSuccess(randomMealPojoList);
+
+        }else{
+            getRandomMeal(sp);
+        }
+    }
+
+    private void saveEditorsPick(List<RandomMealPojo>randomMeal,SharedPreferences sp){
+        SharedPreferences.Editor editor= sp.edit();
+        editor.putString("currentDate",LocalDate.now().toString());
+        editor.putString("strMealThumb",randomMeal.get(0).getStrMealThumb());
+        editor.putString("idMeal",randomMeal.get(0).getIdMeal());
+        editor.putString("strMeal",randomMeal.get(0).getStrMeal());
+        editor.putString("strInstructions",randomMeal.get(0).getStrInstructions());
+        editor.apply();
+    }
+
+    private RandomMealPojo getSavedEditorsPick(SharedPreferences sp){
+        RandomMealPojo randomMealPojo = new RandomMealPojo();
+        randomMealPojo.setIdMeal(sp.getString("idMeal",""));
+        randomMealPojo.setStrMeal(sp.getString("strMeal",""));
+        randomMealPojo.setStrInstructions(sp.getString("strInstructions",""));
+        randomMealPojo.setStrMealThumb(sp.getString("strMealThumb",""));
+
+        return randomMealPojo;
     }
 }

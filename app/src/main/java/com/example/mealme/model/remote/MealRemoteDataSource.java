@@ -6,10 +6,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MealRemoteDataSource {
-
-    public static final String TAG = "Home Meals Client";
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
-    private MealsApi mealsApi;
+    private final MealsApi mealsApi;
     public MealRemoteDataSource(){
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -19,7 +17,6 @@ public class MealRemoteDataSource {
                 .build();
         mealsApi = retrofit.create(MealsApi.class);
     }
-
     public Single<HomeMealResponse> getHomeMeal(){
         return mealsApi.getHomeMeals();
     }

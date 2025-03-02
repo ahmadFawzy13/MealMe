@@ -7,7 +7,7 @@ import java.util.List;
 public class MealDetailsResponse {
 
     @SerializedName("meals")
-    List<Meal> listOfMealsResponse;
+    private List<Meal> listOfMealsResponse;
 
     public List<Meal> getListOfMealsResponse() {
         return listOfMealsResponse;

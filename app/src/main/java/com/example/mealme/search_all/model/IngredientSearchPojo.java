@@ -1,9 +1,9 @@
 package com.example.mealme.search_all.model;
 
 public class IngredientSearchPojo {
-    public String idIngredient;
-    public String strIngredient;
-    public String getIdIngredient() {
+    private String idIngredient;
+    private String strIngredient;
+    private String getIdIngredient() {
         return idIngredient;
     }
 

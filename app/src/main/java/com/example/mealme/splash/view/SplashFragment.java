@@ -17,13 +17,10 @@ import com.example.mealme.R;
 import com.example.mealme.splash.presenter.SplashPresenter;
 
 
-public class SplashFragment extends Fragment implements SplashAnimHandler {
+public class SplashFragment extends Fragment implements SignedInListener {
 
     private LottieAnimationView splashScreen;
     View view;
-
-    public SplashFragment() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

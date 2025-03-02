@@ -1,6 +1,7 @@
 package com.example.mealme.main.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
         });
 
         mainActivityPresenter.monitorConnection();
+
+        if(!mainActivityPresenter.isNetworkConnectedOnStart()){
+            onNetworkLost();
+        }
     }
     @Override
     protected void onStart() {
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
 
                 })
                 .show();
-    }
+     }
 
     @Override
     public void onNetworkAvailable() {
@@ -110,5 +115,4 @@ public class MainActivity extends AppCompatActivity implements NetworkListener {
             offlineTxt.setVisibility(View.VISIBLE);
         });
     }
-
 }

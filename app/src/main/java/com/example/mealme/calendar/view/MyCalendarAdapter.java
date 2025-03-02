@@ -19,9 +19,9 @@ public class MyCalendarAdapter extends RecyclerView.Adapter<MyCalendarAdapter.Vi
 
     private Context context;
     private List<CalendarMeal> calendarMealsList;
-    DeleteCalendarMeal deleteCalendarMeal;
-    CalendarMealObjectTransfer calendarMealObjectTransfer;
-    CalendarMeal calendarMeal;
+    private DeleteCalendarMeal deleteCalendarMeal;
+    private CalendarMealObjectTransfer calendarMealObjectTransfer;
+    private CalendarMeal calendarMeal;
 
     public MyCalendarAdapter(Context context, List<CalendarMeal> calendarMealsList, DeleteCalendarMeal deleteCalendarMeal, CalendarMealObjectTransfer calendarMealObjectTransfer) {
         this.context = context;

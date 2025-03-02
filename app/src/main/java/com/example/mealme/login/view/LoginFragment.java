@@ -80,8 +80,6 @@ public class LoginFragment extends Fragment implements LoginHandler {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homeFragment);
         });
 
-
-
         loginBtn.setOnClickListener(v->{
             loginPresenter.loginAction(emailLogin.getText().toString(),passwordLogin.getText().toString());
         });

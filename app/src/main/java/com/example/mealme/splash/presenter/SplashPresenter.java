@@ -2,16 +2,16 @@ package com.example.mealme.splash.presenter;
 
 import android.os.Handler;
 
-import com.example.mealme.splash.view.SplashAnimHandler;
+import com.example.mealme.splash.view.SignedInListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashPresenter {
 
-    SplashAnimHandler splashAnimHandler;
+    SignedInListener signedInListener;
     FirebaseAuth firebaseAuth;
 
-    public SplashPresenter(SplashAnimHandler splashAnimHandler) {
-        this.splashAnimHandler = splashAnimHandler;
+    public SplashPresenter(SignedInListener signedInListener) {
+        this.signedInListener = signedInListener;
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -22,9 +22,9 @@ public class SplashPresenter {
             @Override
             public void run() {
                 if (firebaseAuth.getCurrentUser()!= null){
-                    splashAnimHandler.transitionSignedIn();
+                    signedInListener.transitionSignedIn();
                 }else{
-                    splashAnimHandler.transitionNotSignedIn();
+                    signedInListener.transitionNotSignedIn();
                 }
             }
         };

@@ -1,5 +1,7 @@
 package com.example.mealme.home.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.common.IdDelivery;
-import com.example.mealme.home.model.HomeMealViewer;
-import com.example.mealme.home.model.RandomMealViewer;
+import com.example.mealme.common.onMealClickListener;
 import com.example.mealme.home.presenter.HomePresenter;
 import com.example.mealme.model.local.MealLocalDataSource;
 import com.example.mealme.model.remote.MealRemoteDataSource;
@@ -32,20 +32,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeMealViewer, RandomMealViewer, IdDelivery {
+public class HomeFragment extends Fragment implements HomeMealViewer, RandomMealViewer, onMealClickListener {
 
-    ImageView randomMealPhoto;
-    TextView randomMealName;
-    TextView randomMealDesc;
-    RecyclerView recyclerView;
-    HomePresenter homePresenter;
-    MyHomeMealsAdapter myHomeMealsAdapter;
-    View view;
-    ConstraintLayout constraintLayout;
-    FirebaseAuth firebaseAuth;
-
-    public HomeFragment() {
-    }
+    private ImageView randomMealPhoto;
+    private TextView randomMealName,randomMealDesc;
+    private RecyclerView recyclerView;
+    private HomePresenter homePresenter;
+    private MyHomeMealsAdapter myHomeMealsAdapter;
+    private View view;
+    private ConstraintLayout constraintLayout;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,12 +68,13 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
         randomMealPhoto = view.findViewById(R.id.randomMealPhoto);
         constraintLayout = view.findViewById(R.id.constraintHome_layout);
         this.view = view;
-        firebaseAuth = FirebaseAuth.getInstance();
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        SharedPreferences sp = getActivity().getSharedPreferences("randomMealSp", Context.MODE_PRIVATE);
 
             homePresenter = setupPresenter();
             homePresenter.getHomeMeals();
-            homePresenter.getRandomMeal();
+            homePresenter.getEditorsPick(sp);
 
         if(firebaseAuth.getCurrentUser() != null) {
             homePresenter.syncFavouritesWithFirebase();
@@ -99,32 +96,32 @@ public class HomeFragment extends Fragment implements HomeMealViewer, RandomMeal
     }
 
     @Override
+    public void onMealClicked(String idMeal) {
+        HomeFragmentDirections.ActionHomeFragmentToMealFragment2 action
+                = HomeFragmentDirections.actionHomeFragmentToMealFragment2(idMeal);
+        Navigation.findNavController(view).navigate(action);
+
+    }
+    @Override
     public void showHomeMealErrorMsg(String err) {
         Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showRandomMeal(List<RandomMealPojo> listOfMeals) {
+    public void onRandomMealSuccess(List<RandomMealPojo> listOfMeals) {
         Glide.with(requireActivity()).load(listOfMeals.get(0).getStrMealThumb()).into(randomMealPhoto);
         randomMealName.setText(listOfMeals.get(0).getStrMeal());
         randomMealDesc.setText(listOfMeals.get(0).getStrInstructions());
         randomMealPhoto.setOnClickListener(v->{
-            com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2
+            HomeFragmentDirections.ActionHomeFragmentToMealFragment2
                    action = HomeFragmentDirections.actionHomeFragmentToMealFragment2(listOfMeals.get(0).getIdMeal());
             Navigation.findNavController(view).navigate(action);
         });
     }
 
     @Override
-    public void showRandomMealErrorMsg(String err) {
+    public void onRandomMealError(String err) {
         Snackbar.make(constraintLayout,err,Snackbar.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void idTransfer(String id) {
-        com.example.mealme.home.view.HomeFragmentDirections.ActionHomeFragmentToMealFragment2 action
-                = HomeFragmentDirections.actionHomeFragmentToMealFragment2(id);
-        Navigation.findNavController(view).navigate(action);
-
-    }
 }

@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.mealme.common.IdDelivery;
+import com.example.mealme.common.onMealClickListener;
 import com.example.mealme.R;
 import com.example.mealme.home.model.HomeMealsPojo;
 
@@ -24,12 +24,12 @@ public class MyHomeMealsAdapter extends RecyclerView.Adapter<MyHomeMealsAdapter.
     private Context context;
     private List<HomeMealsPojo> response;
 
-    IdDelivery idDelivery;
+    onMealClickListener onMealClickListener;
 
-    public MyHomeMealsAdapter(Context context, List<HomeMealsPojo> response, IdDelivery idDelivery) {
+    public MyHomeMealsAdapter(Context context, List<HomeMealsPojo> response, onMealClickListener onMealClickListener) {
         this.context = context;
         this.response = response;
-        this.idDelivery = idDelivery;
+        this.onMealClickListener = onMealClickListener;
     }
 
     public void setList(List<HomeMealsPojo> mealsList) {
@@ -50,7 +50,7 @@ public class MyHomeMealsAdapter extends RecyclerView.Adapter<MyHomeMealsAdapter.
         Glide.with(context).load(response.get(position).getStrMealThumb()).into(holder.homeMealPhoto);
 
         holder.homeMealPhoto.setOnClickListener(v->{
-            idDelivery.idTransfer(response.get(position).getIdMeal());
+            onMealClickListener.onMealClicked(response.get(position).getIdMeal());
         });
     }
 

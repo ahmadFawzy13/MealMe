@@ -39,10 +39,6 @@ public class CalendarDetailsFragment extends Fragment implements Reflector {
     CalendarMeal calendarMeal;
     YouTubePlayerView youTubePlayerView;
 
-    public CalendarDetailsFragment() {
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
